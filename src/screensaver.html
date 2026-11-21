@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Photo Screen Saver</title>
+  <style>
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #000; cursor: none; }
+    img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    #author { position: fixed; right: 16px; bottom: 16px; color: #fff; font: 16px system-ui, sans-serif;
+              text-shadow: 0 0 4px #000; }
+    #msg { position: fixed; inset: 0; display: grid; place-items: center; color: #fff;
+           font: 24px system-ui, sans-serif; }
+  </style>
+</head>
+<body>
+  <img id="photo" alt="">
+  <div id="author"></div>
+  <div id="msg"></div>
+  <script type="module" src="./screensaver/main.ts"></script>
+</body>
+</html>
