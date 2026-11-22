@@ -1,21 +1,17 @@
 # Open Source Licenses Used By Photo Screen Saver Chrome Extension
 
-## chrome-promise
+## Lit
 
-### [License](https://github.com/tfoxy/chrome-promise/blob/master/LICENSE)
+### [BSD 3-Clause License](https://github.com/lit/lit/blob/main/LICENSE)
 
-## face-api.js
+## MediaPipe (tasks-vision runtime and the BlazeFace full-range model)
 
-### [License](https://github.com/justadudewhohacks/face-api.js/blob/master/LICENSE)
+### [Apache License 2.0](https://github.com/google-ai-edge/mediapipe/blob/master/LICENSE)
 
-## Polymer
+## Roboto font
 
-### [License](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
+### [SIL Open Font License 1.1](https://github.com/googlefonts/roboto-classic/blob/main/OFL.txt)
 
-## Snoocore
+## Material Design icons
 
-### [License](https://snoocore.readme.io/docs/license)
-
-## Weather Icons
-
-### [License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL)
+### [Apache License 2.0](https://github.com/google/material-design-icons/blob/master/LICENSE)
