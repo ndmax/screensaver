@@ -65,6 +65,57 @@
   "err_unknown": {
     "message": "unknown"
   },
+  "file_access_off": {
+    "message": "Chrome is blocking file access. Turn on \"Allow access to file URLs\" on this extension's details page."
+  },
+  "folder_err_duplicate": {
+    "message": "Already in the list"
+  },
+  "folder_err_empty": {
+    "message": "No photos found. Showing the photos from the last good scan."
+  },
+  "folder_err_nested": {
+    "message": "Overlaps a folder already in the list"
+  },
+  "folder_err_no_access": {
+    "message": "Chrome is blocking file access"
+  },
+  "folder_err_not_dir": {
+    "message": "Not a folder"
+  },
+  "folder_err_not_found": {
+    "message": "Folder not found"
+  },
+  "folder_err_subfolder": {
+    "message": "Some subfolders couldn't be read. Showing the photos from the last good scan."
+  },
+  "folders_add": {
+    "message": "Add folder"
+  },
+  "folders_empty": {
+    "message": "Add a folder of photos to show in the screensaver. Subfolders are included."
+  },
+  "folders_found": {
+    "message": "found"
+  },
+  "folders_path_placeholder": {
+    "message": "Folder path, e.g. /home/me/Pictures"
+  },
+  "folders_photos": {
+    "message": "photos"
+  },
+  "folders_remove": {
+    "message": "Remove"
+  },
+  "folders_scanning": {
+    "message": "Scanning…"
+  },
+  "folders_skipped": {
+    "message": "skipped (videos and HEIC)"
+  },
+  "folders_title": {
+    "message": "Photo folders"
+  },
   "help": {
     "message": "Help"
   },
@@ -176,6 +227,9 @@
   "on": {
     "message": "is On"
   },
+  "open_ext_settings": {
+    "message": "Open extension settings"
+  },
   "photo": {
     "message": "photo"
   },
@@ -262,7 +316,7 @@
     "message": "Photo transition method"
   },
   "setting_photog": {
-    "message": "Show album name for your photos"
+    "message": "Show folder name"
   },
   "setting_show_time": {
     "message": "Show time"

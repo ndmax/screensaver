@@ -19,6 +19,7 @@ import {TIME_FORMAT} from '../lib/time';
 import {errMsg} from '../lib/utils';
 import type {SettingChangeEvent} from './controls';
 import './controls';
+import './folder-list';
 import {icon} from './icons';
 import {shared} from './styles';
 import {idleTimeUnits, transitionTimeUnits} from './units';
@@ -200,7 +201,7 @@ export class SettingsPage extends LitElement {
       case TAB.DISPLAY:
         return this.displayTab(s, off);
       case TAB.SOURCES:
-        return this.sourcesTab(s, off);
+        return this.sourcesTab(off);
       default:
         return this.controlsTab(s, off);
     }
@@ -280,8 +281,8 @@ export class SettingsPage extends LitElement {
                       .checked=${s.allowSuspend} ?disabled=${sleepOff}></setting-toggle>`;
   }
 
-  private sourcesTab(_s: Settings.Settings, _off: boolean) {
-    return nothing;
+  private sourcesTab(off: boolean) {
+    return html`<folder-list ?disabled=${off}></folder-list>`;
   }
 
   /** Persist a setting and re-render now, rather than on the storage echo */
