@@ -129,12 +129,19 @@ export class SettingsPage extends LitElement {
   // menus, localized once
   private readonly idleUnits = idleTimeUnits();
   private readonly transitionUnits = transitionTimeUnits();
-  private readonly sizingMenu = ['menu_letterbox', 'menu_zoom', 'menu_frame', 'menu_full', 'menu_random']
-      .map((k) => localize(k));
-  private readonly transitionMenu = ['menu_scale_up', 'menu_fade', 'menu_slide_from_right', 'menu_slide_down',
-    'menu_spin_up', 'menu_slide_up', 'menu_slide_from_bottom', 'menu_slide_right', 'menu_random']
-      .map((k) => localize(k));
-  private readonly timeMenu = ['no', 'menu_12_hour', 'menu_24_hour'].map((k) => localize(k));
+  // in VIEW_TYPE order
+  private readonly sizingMenu = [
+    localize('menu_letterbox'), localize('menu_zoom'), localize('menu_frame'),
+    localize('menu_full'), localize('menu_random'),
+  ];
+  // in TRANS_TYPE order
+  private readonly transitionMenu = [
+    localize('menu_scale_up'), localize('menu_fade'), localize('menu_slide_from_right'),
+    localize('menu_slide_down'), localize('menu_spin_up'), localize('menu_slide_up'),
+    localize('menu_slide_from_bottom'), localize('menu_slide_right'), localize('menu_random'),
+  ];
+  // in TIME_FORMAT order
+  private readonly timeMenu = [localize('no'), localize('menu_12_hour'), localize('menu_24_hour')];
 
   override connectedCallback(): void {
     super.connectedCallback();

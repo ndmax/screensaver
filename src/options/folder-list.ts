@@ -13,7 +13,7 @@ import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
 import * as Settings from '../lib/settings';
 import {errMsg} from '../lib/utils';
-import {type FolderStatus, statusKey} from '../sources/folder_store';
+import {type FolderStatus, scanErrorText, statusKey} from '../sources/folder_store';
 import {pathToUrl, validateNewPath} from '../sources/folders';
 import {icon} from './icons';
 import {shared} from './styles';
@@ -202,7 +202,7 @@ export class FolderList extends LitElement {
     }
     return html`
       <div class="count">${parts.join(' · ')}</div>
-      ${s.error ? html`<div class="error">${localize(s.error)}</div>` : nothing}`;
+      ${s.error ? html`<div class="error">${scanErrorText(s.error)}</div>` : nothing}`;
   }
 
   private async load(): Promise<void> {
@@ -258,7 +258,7 @@ export class FolderList extends LitElement {
       return;
     }
     if (invalid) {
-      this.addError = localize(invalid === 'duplicate' ? 'folder_err_duplicate' : 'folder_err_nested');
+      this.addError = invalid === 'duplicate' ? localize('folder_err_duplicate') : localize('folder_err_nested');
       return;
     }
     await this.checkFileAccess();
@@ -272,7 +272,7 @@ export class FolderList extends LitElement {
     } catch {
       // a file can be fetched without the trailing slash, a missing path can't
       const isFile = await fetch(url.slice(0, -1)).then(() => true, () => false);
-      this.addError = localize(isFile ? 'folder_err_not_dir' : 'folder_err_not_found');
+      this.addError = isFile ? localize('folder_err_not_dir') : localize('folder_err_not_found');
       return;
     }
     try {
