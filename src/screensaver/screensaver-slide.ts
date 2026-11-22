@@ -17,7 +17,7 @@ import {errMsg} from '../lib/utils';
 import * as FaceDetect from './face_detect';
 import {authorLabel} from './labels';
 import {computeLayout} from './layout';
-import {randomPan} from './pan';
+import {facePan, PAN_EASING, randomPan} from './pan';
 import type {SSPhoto} from './ss_photo';
 
 interface Rect {
@@ -195,29 +195,18 @@ export class ScreensaverSlide extends LitElement {
       // spin up is slower than the other transitions
       const delay = Settings.get('photoTransition') === TRANS_TYPE.SPIN_UP ? 2000 : 1000;
 
-      let scale: number;
-      let translateX: number;
-      let translateY: number;
-      if (target && target.width && target.height) {
-        // pan and zoom to the faces
-        scale = Math.min(1.6, width / target.width, height / target.height);
-        const maxX = (scale - 1.0) * 0.25 * width;
-        const maxY = (scale - 1.0) * 0.25 * height;
-        translateX = -Math.min(maxX, Math.abs(target.x)) * Math.sign(target.x);
-        translateY = -Math.min(maxY, Math.abs(target.y)) * Math.sign(target.y);
-      } else {
-        // no faces: random pan and zoom
-        ({scale, x: translateX, y: translateY} = randomPan(width, height));
-      }
+      const pan = target && target.width && target.height
+        ? facePan(target, width, height)
+        : randomPan(width, height);
 
       this.panAnimation = img.animate([
         {transform: 'scale(1.0) translateX(0px) translateY(0px)'},
-        {transform: `scale(${scale}) translateX(${translateX}px) translateY(${translateY}px)`},
+        {transform: `scale(${pan.scale}) translateX(${pan.x}px) translateY(${pan.y}px)`},
       ], {
         delay,
         duration: Math.max(0, aniTime - delay),
         iterations: 1,
-        easing: 'ease-in-out',
+        easing: PAN_EASING,
         fill: 'forwards',
       });
     } catch (err) {
