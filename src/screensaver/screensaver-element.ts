@@ -14,7 +14,6 @@ import * as Settings from '../lib/settings';
 import {TRANS_TYPE, type TransType, VIEW_TYPE, type ViewType} from '../lib/settings';
 import {formatShort, TIME_FORMAT} from '../lib/time';
 import {errMsg, getRandomInt} from '../lib/utils';
-import * as PhotoSources from '../sources/photo_sources';
 import * as FaceDetect from './face_detect';
 import './screensaver-slide';
 import type {ScreensaverSlide} from './screensaver-slide';
@@ -94,9 +93,8 @@ export class ScreensaverElement extends LitElement implements SlideView {
       const sizing = Settings.get('photoSizing');
       const skip = Settings.get('skip') && (sizing === VIEW_TYPE.ZOOM || sizing === VIEW_TYPE.FULL);
       const screenAsp = window.innerWidth / window.innerHeight;
-      for (const source of PhotoSources.getSelectedSources()) {
-        this.photoList.add(await source.getPhotos(), (asp) => skip && isBadAspect(asp, screenAsp));
-      }
+      // TODO(task 3): load folder photos
+      this.photoList.add([], (asp) => skip && isBadAspect(asp, screenAsp));
       if (Settings.get('shuffle')) {
         this.photoList.shuffle();
       }

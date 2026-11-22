@@ -1,9 +1,9 @@
 /**
  * The Settings page: three tabs of setting controls.
  *
- * Ported from elements/pages/settings-page. Weather, Flickr, reddit,
- * Chromecast and Google Photos settings are gone for now; the photo sources
- * return in step 5.
+ * Ported from elements/pages/settings-page. The original's online photo
+ * sources (Google Photos, Flickr, reddit, Chromecast, Unsplash) and weather
+ * are gone; photos come from local folders (the folder-list element).
  */
 
 import {css, html, LitElement, nothing} from 'lit';
@@ -17,7 +17,6 @@ import * as Settings from '../lib/settings';
 import type {SettingKey} from '../lib/settings';
 import {TIME_FORMAT} from '../lib/time';
 import {errMsg} from '../lib/utils';
-import {isUseKey, USE_KEYS, type UseKey} from '../sources/photo_source';
 import type {SettingChangeEvent} from './controls';
 import './controls';
 import {icon} from './icons';
@@ -29,14 +28,6 @@ type Tab = (typeof TAB)[keyof typeof TAB];
 
 const HELP_URL = 'https://opus1269.github.io/screensaver/help/settings.html';
 const HELP_ANCHORS = ['ss_controls', 'display_controls', 'photo_sources'];
-
-/** Label keys for the photo sources, in display order */
-const SOURCES: {key: UseKey; label: string}[] = [
-  {key: 'useArchitectureUnsplash', label: 'setting_unsplash_architecture'},
-  {key: 'useCityUnsplash', label: 'setting_unsplash_city'},
-  {key: 'useNatureUnsplash', label: 'setting_unsplash_nature'},
-  {key: 'usePeopleUnsplash', label: 'setting_unsplash_people'},
-];
 
 export interface ShowErrorDetail {
   title: string;
@@ -175,12 +166,6 @@ export class SettingsPage extends LitElement {
           <label class="enabled-label" for="enabled">
             ${localize('screensaver')} ${s.enabled ? localize('on') : localize('off')}
           </label>
-          <button class="icon-button" ?hidden=${this.tab !== TAB.SOURCES} ?disabled=${off}
-                  title=${localize('tooltip_select')} aria-label=${localize('tooltip_select')}
-                  @click=${() => this.setAllSources(true)}>${icon('check-box')}</button>
-          <button class="icon-button" ?hidden=${this.tab !== TAB.SOURCES} ?disabled=${off}
-                  title=${localize('tooltip_deselect')} aria-label=${localize('tooltip_deselect')}
-                  @click=${() => this.setAllSources(false)}>${icon('check-box-outline-blank')}</button>
           <button id="restore" class="icon-button" ?disabled=${off}
                   title=${localize('tooltip_restore')} aria-label=${localize('tooltip_restore')}
                   @click=${() => this.confirmRestore.showModal()}>${icon('settings-backup-restore')}</button>
@@ -295,13 +280,8 @@ export class SettingsPage extends LitElement {
                       .checked=${s.allowSuspend} ?disabled=${sleepOff}></setting-toggle>`;
   }
 
-  private sourcesTab(s: Settings.Settings, off: boolean) {
-    return html`
-      ${SOURCES.map(({key, label}, i) => html`
-        <setting-toggle name=${key} mainLabel=${localize(label)} secondaryLabel=${localize(`${label}_desc`)}
-                        ?noseparator=${i < SOURCES.length - 1}
-                        .checked=${s[key]} ?disabled=${off}></setting-toggle>`)}
-      <p class="note">${localize('sources_coming')}</p>`;
+  private sourcesTab(_s: Settings.Settings, _off: boolean) {
+    return nothing;
   }
 
   /** Persist a setting and re-render now, rather than on the storage echo */
@@ -323,16 +303,8 @@ export class SettingsPage extends LitElement {
       case 'allowBackground':
         void this.setWithPermission(name, value as boolean, Permissions.BACKGROUND, '');
         break;
-      case 'detectFaces':
-        void this.setWithPermission(name, value as boolean, Permissions.DETECT_FACES,
-            localize('err_detect_faces_perm'));
-        break;
       default:
-        if (isUseKey(name)) {
-          void this.onSourceChanged(name, value as boolean);
-        } else {
-          void this.save(name, value as never);
-        }
+        void this.save(name, value as never);
     }
   };
 
@@ -343,7 +315,7 @@ export class SettingsPage extends LitElement {
    *
    * @param errText - shown if the user denies the permission; none if empty
    */
-  private async setWithPermission(key: 'allowBackground' | 'detectFaces', on: boolean,
+  private async setWithPermission(key: 'allowBackground', on: boolean,
                                   perm: Permissions.PermType, errText: string): Promise<void> {
     if (!on) {
       await this.save(key, false);
@@ -361,39 +333,6 @@ export class SettingsPage extends LitElement {
     if (!granted && (error || errText)) {
       showError(this, localize('err_optional_permissions'), error || errText);
     }
-  }
-
-  /**
-   * A photo source was toggled. With face detection on, its image host needs
-   * the face detection permission too.
-   */
-  private async onSourceChanged(key: UseKey, on: boolean): Promise<void> {
-    if (on && Settings.get('detectFaces')) {
-      try {
-        if (!await Permissions.contains(Permissions.DETECT_FACES) &&
-            !await Permissions.request(Permissions.DETECT_FACES)) {
-          throw new Error(localize('err_detect_faces_perm'));
-        }
-      } catch (err) {
-        await this.save(key, false);
-        showError(this, localize('err_optional_permissions'), errMsg(err));
-        return;
-      }
-    }
-    await this.save(key, on);
-  }
-
-  private async setAllSources(on: boolean): Promise<void> {
-    const values: Partial<Settings.Settings> = {};
-    for (const key of USE_KEYS) {
-      values[key] = on;
-    }
-    try {
-      await Settings.setMany(values);
-    } catch (err) {
-      Log.error(errMsg(err), 'SettingsPage.setAllSources');
-    }
-    this.s = Settings.getAll();
   }
 
   private onConfirmRestore = (): void => {

@@ -16,8 +16,6 @@ export type Message =
   | {message: 'closeScreensaver'}
   /** Is a screensaver showing? Any screensaver replies (service worker -> screensavers) */
   | {message: 'isScreensaverShowing'}
-  /** A photo source failed to update (service worker -> options page) */
-  | {message: 'photoSourceFailed'; key: string; error: string}
   /** A storage write failed for lack of space */
   | {message: 'storageExceeded'};
 

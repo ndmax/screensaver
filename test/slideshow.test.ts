@@ -2,16 +2,12 @@ import {afterEach, beforeEach, describe, expect, it, vi} from 'vitest';
 import {MAX_SLIDES, Slideshow, type SlideView} from '../src/screensaver/slideshow';
 import type {SSPhoto} from '../src/screensaver/ss_photo';
 import {PhotoList} from '../src/screensaver/ss_photos';
-import {SOURCE_TYPE} from '../src/sources/photo_source';
 
 const TRANS = 10_000;
 
 function makeList(n: number): PhotoList {
   const list = new PhotoList();
-  list.add({
-    type: SOURCE_TYPE.UNSPLASH,
-    photos: Array.from({length: n}, (_, i) => ({url: `p${i}`, author: `a${i}`, asp: '1.50'})),
-  });
+  list.add(Array.from({length: n}, (_, i) => ({url: `p${i}`, author: `a${i}`, asp: '1.50'})));
   return list;
 }
 

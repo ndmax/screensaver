@@ -60,8 +60,6 @@ export interface Settings {
   enabled: boolean;
   /** Run Chrome in background optional permission */
   permBackground: PermState;
-  /** Detect faces optional permission (image host origins) */
-  permDetectFaces: PermState;
   /** Run Chrome in background */
   allowBackground: boolean;
   /** Idle time before display (base: minutes) */
@@ -76,7 +74,7 @@ export interface Settings {
   photoTransition: TransType;
   /** Manual control of the screensaver */
   interactive: boolean;
-  /** Show photographer */
+  /** Show the photo's folder name */
   showPhotog: boolean;
   /** CSS background for the screensaver */
   background: string;
@@ -96,10 +94,8 @@ export interface Settings {
   allowSuspend: boolean;
   /** Left click opens the photo's source page */
   allowPhotoClicks: boolean;
-  useArchitectureUnsplash: boolean;
-  useNatureUnsplash: boolean;
-  usePeopleUnsplash: boolean;
-  useCityUnsplash: boolean;
+  /** Local folder paths to show photos from, as the user entered them */
+  photoFolders: string[];
   /** "Ken Burns" effect */
   panAndScan: boolean;
   /** Pan to faces during pan and scan */
@@ -113,7 +109,6 @@ export type SettingKey = keyof Settings;
 export const DEFAULTS: Readonly<Settings> = Object.freeze({
   enabled: true,
   permBackground: 'notSet',
-  permDetectFaces: 'notSet',
   allowBackground: false,
   idleTime: {base: 5, display: 5, unit: 0},
   transitionTime: {base: 30, display: 30, unit: 0},
@@ -133,12 +128,7 @@ export const DEFAULTS: Readonly<Settings> = Object.freeze({
   activeStop: DEF_TIME,
   allowSuspend: false,
   allowPhotoClicks: true,
-  useArchitectureUnsplash: false,
-  // Interim default: the original defaults (Chromecast, Google Photos albums)
-  // do not work yet. Revisit when those sources are restored.
-  useNatureUnsplash: true,
-  usePeopleUnsplash: false,
-  useCityUnsplash: false,
+  photoFolders: [],
   panAndScan: false,
   detectFaces: false,
   darkMode: false,

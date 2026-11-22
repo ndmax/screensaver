@@ -17,6 +17,19 @@ describe('Settings', () => {
     expect(Settings.get('idleTime')).toEqual({base: 5, display: 5, unit: 0});
   });
 
+  it('photoFolders defaults to an empty list and stores paths', async () => {
+    await Settings.ready();
+    expect(Settings.get('photoFolders')).toEqual([]);
+    await Settings.set('photoFolders', ['/home/me/Pictures']);
+    expect(Settings.get('photoFolders')).toEqual(['/home/me/Pictures']);
+    expect(Settings.DEFAULTS.photoFolders).toEqual([]);
+  });
+
+  it('the removed source settings are gone', () => {
+    expect(Settings.isSettingKey('useNatureUnsplash')).toBe(false);
+    expect(Settings.isSettingKey('permDetectFaces')).toBe(false);
+  });
+
   it('returns stored values over defaults', async () => {
     seedStorage({enabled: false, activeStart: '08:30'});
     await Settings.ready();

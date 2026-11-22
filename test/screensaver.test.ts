@@ -6,8 +6,6 @@ import {computeLayout} from '../src/screensaver/layout';
 import {isBadAspect, SSPhoto} from '../src/screensaver/ss_photo';
 import {PhotoList} from '../src/screensaver/ss_photos';
 import {getTransition} from '../src/screensaver/transitions';
-import {SOURCE_TYPE} from '../src/sources/photo_source';
-import {setMessages} from './chrome-mock';
 
 const W = 1920;
 const H = 1080;
@@ -51,22 +49,12 @@ describe('computeLayout', () => {
 });
 
 describe('labels and photos', () => {
-  const photo = (author: string, type: string = SOURCE_TYPE.UNSPLASH) =>
-    new SSPhoto({url: 'u', author, asp: '1.5'}, type as typeof SOURCE_TYPE.UNSPLASH);
+  const photo = (author: string) => new SSPhoto({url: 'u', author, asp: '1.5'});
 
-  it('authorLabel', () => {
-    setMessages({photo_from: 'Photo from'});
-    expect(authorLabel(photo('Ann'), true)).toBe('Ann / Unsplash');
-    expect(authorLabel(photo(''), true)).toBe('Photo from Unsplash');
-    // the user's own Google photos
-    expect(authorLabel(photo('Album', 'Google User'), true)).toBe('Album / Google');
-    expect(authorLabel(photo('Album', 'Google User'), false)).toBe('');
-  });
-
-  it('source url prefers the photo page', () => {
-    const p = new SSPhoto({url: 'img', author: '', asp: '1', ex: {url: 'page'}}, SOURCE_TYPE.UNSPLASH);
-    expect(p.getSourceUrl()).toBe('page');
-    expect(photo('x').getSourceUrl()).toBe('u');
+  it('authorLabel is the folder name, when enabled', () => {
+    expect(authorLabel(photo('Hawaii 2019 / Day 1'), true)).toBe('Hawaii 2019 / Day 1');
+    expect(authorLabel(photo('Hawaii 2019'), false)).toBe('');
+    expect(authorLabel(null, true)).toBe('');
   });
 
   it('isBadAspect', () => {
@@ -77,12 +65,12 @@ describe('labels and photos', () => {
 
   it('PhotoList.add honors ignore, getNextUsable skips bad and ignored', () => {
     const list = new PhotoList();
-    list.add({type: SOURCE_TYPE.UNSPLASH, photos: [
+    list.add([
       {url: 'a', author: '', asp: '1.5'},
       {url: 'b', author: '', asp: '0.5'},
       {url: 'c', author: '', asp: '1.5'},
       {url: 'd', author: '', asp: '1.5'},
-    ]}, (asp) => asp < 1);
+    ], (asp) => asp < 1);
     expect(list.count).toBe(3);
     const a = list.getNextUsable()!;
     expect(a.getUrl()).toBe('a');

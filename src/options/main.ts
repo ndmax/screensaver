@@ -4,8 +4,8 @@
  *
  * Ported from elements/app-main (Polymer app-drawer-layout,
  * neon-animated-pages, paper-dialog). Removed menu items:
- * - Google Photos and its permission dialog: return with the Picker API
- *   source in step 5.
+ * - Google Photos and its permission dialog: the source is gone; photos come
+ *   from local folders.
  * - Request support, Rate, and the Pushy Clipboard ad: the Web Store
  *   listings are gone.
  */
@@ -20,7 +20,6 @@ import * as Log from '../lib/log';
 import * as Msg from '../lib/msg';
 import * as Settings from '../lib/settings';
 import {errMsg, getVersion} from '../lib/utils';
-import {isUseKey} from '../sources/photo_source';
 import './error-page';
 import './help-page';
 import {icon, type IconName} from './icons';
@@ -323,12 +322,6 @@ export class OptionsApp extends LitElement {
 
   private onMessage: Msg.Handler = (msg) => {
     switch (msg.message) {
-      case 'photoSourceFailed':
-        if (isUseKey(msg.key)) {
-          void Settings.set(msg.key, false);
-        }
-        this.showError(localize('err_photo_source_title'), msg.error);
-        return undefined;
       case 'storageExceeded':
         this.showError(localize('err_storage_title'), localize('err_storage_desc'));
         return undefined;

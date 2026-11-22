@@ -1,16 +1,17 @@
 > **Manifest V3 port in progress (branch `mv3-lit`).** The original extension by
 > Michael A. Updike stopped working when Chrome removed Manifest V2 support. This
 > branch is rebuilding it with Manifest V3, TypeScript and [Lit](https://lit.dev).
-> Weather and Flickr have been removed. The original MV2/Polymer source is kept
+> Photos now come from folders on your computer; the online photo sources
+> (Google Photos, Flickr, reddit, Chromecast) and weather have been removed. The original MV2/Polymer source is kept
 > in `app/` for reference until the port is complete.
 >
 > | Step | Status |
 > |---|---|
 > | 1. Vite + TypeScript + MV3 project, en_US locale, icons | done |
-> | 2. chrome.storage settings, service worker (alarms, idle, keep awake, context menus, Unsplash) | done |
+> | 2. chrome.storage settings, service worker (alarms, idle, keep awake, context menus) | done |
 > | 3. Screensaver page in Lit | done |
 > | 4. Options page in Lit (settings, error viewer, help) | done |
-> | 5. Google Photos (Picker API), Reddit, Chromecast replacement | not started |
+> | 5. Local photo folders (replace Google Photos, reddit, Chromecast) | in progress |
 >
 > ### Building
 >
@@ -18,7 +19,6 @@
 >
 > ```sh
 > npm install
-> cp .env.example .env.local   # add your Unsplash access key
 > npm run build                # type-check + build to dist/
 > npm test                     # unit tests
 > npm run lint

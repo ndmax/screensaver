@@ -8,22 +8,30 @@
 
 import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
-import * as Msg from '../lib/msg';
 import * as Settings from '../lib/settings';
 import type {SettingKey} from '../lib/settings';
 import {TIME_FORMAT, type TimeFormat} from '../lib/time';
 import {errMsg} from '../lib/utils';
-import * as PhotoSources from '../sources/photo_sources';
 import * as Alarm from './alarm';
 import * as ContextMenus from './context_menus';
 import * as SSController from './ss_controller';
 
 /** Version of the stored data. Bump and add a migration when it changes. */
-export const DATA_VERSION = 1;
+export const DATA_VERSION = 2;
 const VERSION_KEY = 'dataVersion';
 
-/** Settings that restoreDefaults leaves alone: they mirror Chrome's grants. */
-const KEEP_ON_RESTORE: readonly SettingKey[] = ['permBackground', 'permDetectFaces'];
+/**
+ * Settings that restoreDefaults leaves alone: permBackground mirrors Chrome's
+ * grant, and the folder list is the user's content, not a preference.
+ */
+const KEEP_ON_RESTORE: readonly SettingKey[] = ['permBackground', 'photoFolders'];
+
+/** Keys of the removed Unsplash source and face detection permission (v1) */
+const V1_REMOVED_KEYS = [
+  'useArchitectureUnsplash', 'useNatureUnsplash', 'usePeopleUnsplash', 'useCityUnsplash',
+  'architectureUnsplashImages', 'natureUnsplashImages', 'peopleUnsplashImages', 'cityUnsplashImages',
+  'permDetectFaces',
+];
 
 /** First install */
 export async function initialize(): Promise<void> {
@@ -49,8 +57,10 @@ export async function update(): Promise<void> {
 /**
  * Migrate stored data from an older DATA_VERSION.
  */
-async function migrate(_oldVersion: number): Promise<void> {
-  // No migrations yet.
+async function migrate(oldVersion: number): Promise<void> {
+  if (oldVersion < 2) {
+    await chrome.storage.local.remove(V1_REMOVED_KEYS);
+  }
 }
 
 /**
@@ -80,16 +90,6 @@ export async function processState(key: SettingKey | 'all' = 'all'): Promise<voi
       await processKeepAwake();
       processIdleTime();
       await Alarm.updatePhotoAlarm();
-      await PhotoSources.processAll(false);
-      return;
-    }
-
-    if (PhotoSources.isUseKey(key)) {
-      try {
-        await PhotoSources.process(key);
-      } catch (err) {
-        Msg.broadcast({message: 'photoSourceFailed', key, error: errMsg(err)});
-      }
       return;
     }
 

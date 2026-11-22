@@ -10,7 +10,6 @@ import {css, html, LitElement, nothing, type PropertyValues} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
 import {styleMap} from 'lit/directives/style-map.js';
 import * as Log from '../lib/log';
-import * as Permissions from '../lib/permissions';
 import * as Settings from '../lib/settings';
 import {TRANS_TYPE, VIEW_TYPE, type ViewType} from '../lib/settings';
 import {TIME_FORMAT} from '../lib/time';
@@ -115,12 +114,6 @@ export class ScreensaverSlide extends LitElement {
     this.dispatchEvent(new CustomEvent('image-error', {detail: {index: this.index}, bubbles: true, composed: true}));
   };
 
-  /** Only request CORS where we need pixels and the host allows it */
-  private useCors(url: string): boolean {
-    return Settings.get('panAndScan') && Settings.get('detectFaces') &&
-      Permissions.isInOrigins(url, Permissions.DETECT_FACES);
-  }
-
   override render() {
     const photo = this.photo;
     if (!photo) {
@@ -135,7 +128,6 @@ export class ScreensaverSlide extends LitElement {
     return html`
       <div class="image" style=${styleMap(layout.container)}>
         <img src=${url} alt="" style=${styleMap(layout.img)}
-             crossorigin=${this.useCors(url) ? 'anonymous' : nothing}
              @load=${this.onLoad} @error=${this.onError}>
       </div>
       ${showTime ? html`<div class="time" style=${styleMap(layout.time)}>${this.timeLabel}</div>` : nothing}
@@ -194,7 +186,7 @@ export class ScreensaverSlide extends LitElement {
     }
     try {
       let target: Rect | null = null;
-      if (Settings.get('detectFaces') && this.useCors(this.photo.getUrl())) {
+      if (Settings.get('detectFaces')) {
         target = await this.faceTarget(img, width, height);
       }
 

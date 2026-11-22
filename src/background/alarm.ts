@@ -9,7 +9,6 @@ import * as Log from '../lib/log';
 import * as Settings from '../lib/settings';
 import {getTimeDelta, isInRange, MIN_IN_DAY, MSEC_IN_DAY} from '../lib/time';
 import {errMsg} from '../lib/utils';
-import * as PhotoSources from '../sources/photo_sources';
 import * as SSController from './ss_controller';
 
 export const ALARMS = {
@@ -107,7 +106,7 @@ export async function onAlarm(alarm: chrome.alarms.Alarm): Promise<void> {
         await updateBadgeTextAlarm();
         break;
       case ALARMS.UPDATE_PHOTOS:
-        await PhotoSources.processDaily();
+        // TODO(task 3): rescan folders
         break;
       case ALARMS.BADGE_TEXT:
         await setBadgeText();

@@ -1,8 +1,9 @@
 /**
  * Optional permissions.
  *
- * Ported from scripts/permissions.ts. The weather permission is gone; the
- * Google Photos permission returns with the Picker API source.
+ * Ported from scripts/permissions.ts. The weather, Google Photos and face
+ * detection permissions are gone: photos are local files, readable through
+ * the file:///* host permission.
  */
 
 import * as Log from './log';
@@ -12,30 +13,18 @@ import type {PermState} from './settings';
 /** An optional permission set */
 export interface PermType {
   /** Setting that records the user's choice */
-  name: 'permBackground' | 'permDetectFaces';
+  name: 'permBackground';
   /** API permissions */
   permissions: chrome.runtime.ManifestOptionalPermission[];
   /** Host match patterns, must also be in optional_host_permissions */
   origins: string[];
 }
 
-const UNSPLASH_SOURCE_ORIGIN = 'https://images.unsplash.com/*';
-
 /** Run Chrome in the background */
 export const BACKGROUND: PermType = {
   name: 'permBackground',
   permissions: ['background'],
   origins: [],
-};
-
-/**
- * Read pixels from photo hosts so faces can be detected. Image hosts are
- * added here as their photo sources are restored.
- */
-export const DETECT_FACES: PermType = {
-  name: 'permDetectFaces',
-  permissions: [],
-  origins: [UNSPLASH_SOURCE_ORIGIN],
 };
 
 export function notSet(type: PermType): boolean {
@@ -102,30 +91,4 @@ export async function deny(type: PermType): Promise<boolean> {
   const removed = await remove(type);
   await setState(type, 'denied');
   return removed;
-}
-
-/**
- * Is a url covered by one of the permission's host patterns.
- *
- * Fixes the original, which trimmed the origin using an index computed from
- * the url string and so only matched by coincidence.
- */
-export function isInOrigins(url: string, type: PermType): boolean {
-  let parsed: URL;
-  try {
-    parsed = new URL(url);
-  } catch {
-    return false;
-  }
-  for (const origin of type.origins) {
-    const match = /^(https?):\/\/(\*\.)?([^/]+)\//.exec(origin);
-    if (!match || `${match[1]}:` !== parsed.protocol) {
-      continue;
-    }
-    const [, , wildcard, host] = match;
-    if (parsed.hostname === host || (wildcard && parsed.hostname.endsWith(`.${host}`))) {
-      return true;
-    }
-  }
-  return false;
 }

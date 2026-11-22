@@ -5,7 +5,7 @@
  */
 
 import {shuffleArray} from '../lib/utils';
-import type {Photos} from '../sources/photo_source';
+import type {Photo} from '../sources/photo_source';
 import {SSPhoto} from './ss_photo';
 
 export class PhotoList {
@@ -13,15 +13,14 @@ export class PhotoList {
   private curIdx = 0;
 
   /**
-   * Add the photos from a source.
+   * Add photos.
    *
-   * @param source - photos from a PhotoSource
    * @param ignore - returns true to skip a photo by aspect ratio
    */
-  add(source: Photos, ignore: (asp: number) => boolean = () => false): void {
-    for (const photo of source.photos) {
+  add(photos: readonly Photo[], ignore: (asp: number) => boolean = () => false): void {
+    for (const photo of photos) {
       if (!ignore(parseFloat(photo.asp))) {
-        this.photos.push(new SSPhoto(photo, source.type));
+        this.photos.push(new SSPhoto(photo));
       }
     }
   }

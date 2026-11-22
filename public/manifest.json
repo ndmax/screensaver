@@ -56,8 +56,8 @@
   "optional_permissions": [
     "background"
   ],
-  "optional_host_permissions": [
-    "https://images.unsplash.com/*"
+  "host_permissions": [
+    "file:///*"
   ],
   "background": {
     "service_worker": "background.js",
