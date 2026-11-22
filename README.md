@@ -48,6 +48,7 @@ npm test                     # unit tests
 npm run lint
 npm run test:e2e             # browser tests, see test/e2e/README.md
 npm run package              # build + zip for the Chrome Web Store, see docs/store-listing.md
+npm run store-images         # Web Store screenshots and promo tiles, see store/README.md
 ```
 
 Load `dist/` from `chrome://extensions` with Developer mode on, using "Load unpacked".

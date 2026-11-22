@@ -193,7 +193,8 @@ export class FolderList extends LitElement {
       const found = s?.found ? ` ${s.found.toLocaleString()} ${localize('folders_found')}` : '';
       return html`<div class="count">${localize('folders_scanning')}${found}</div>`;
     }
-    const parts = [`${s.count.toLocaleString()} ${localize('folders_photos')}`];
+    const photos = s.count === 1 ? localize('folders_photo') : localize('folders_photos');
+    const parts = [`${s.count.toLocaleString()} ${photos}`];
     if (s.skipped) {
       parts.push(`${s.skipped.toLocaleString()} ${localize('folders_skipped')}`);
     }
