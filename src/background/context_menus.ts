@@ -1,8 +1,4 @@
-/**
- * Toolbar icon context menu and keyboard commands.
- *
- * Ported from scripts/background/context_menus.ts.
- */
+/** Toolbar icon context menu and keyboard commands. */
 
 import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
@@ -13,7 +9,6 @@ import * as SSController from './ss_controller';
 const MENU = {
   DISPLAY: 'DISPLAY_MENU',
   ENABLE: 'ENABLE_MENU',
-  SEP: 'SEP_MENU',
 } as const;
 
 function enableTitle(): string {
@@ -29,7 +24,6 @@ export async function initialize(): Promise<void> {
   chrome.contextMenus.create({
     type: 'normal', id: MENU.ENABLE, title: enableTitle(), contexts: ['action'],
   });
-  chrome.contextMenus.create({type: 'separator', id: MENU.SEP, contexts: ['action']});
 }
 
 /** Sync the enable/disable menu text with the setting */
@@ -50,7 +44,7 @@ async function toggleEnabled(): Promise<void> {
 export async function onMenuClicked(info: chrome.contextMenus.OnClickData): Promise<void> {
   try {
     if (info.menuItemId === MENU.DISPLAY) {
-      await SSController.display(false);
+      await SSController.display();
     } else if (info.menuItemId === MENU.ENABLE) {
       await toggleEnabled();
     }
@@ -68,7 +62,7 @@ export async function onCommand(cmd: string): Promise<void> {
     if (cmd === 'toggle-enabled') {
       await toggleEnabled();
     } else if (cmd === 'show-screensaver') {
-      await SSController.display(false);
+      await SSController.display();
     }
   } catch (err) {
     Log.error(errMsg(err), 'ContextMenus.onCommand');

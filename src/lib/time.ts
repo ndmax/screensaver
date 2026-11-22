@@ -1,8 +1,4 @@
-/**
- * Time-of-day helpers for 'HH:MM' (24 hour) strings.
- *
- * Ported from @opus1269/chrome-ext-utils time.ts.
- */
+/** Time-of-day helpers for 'HH:MM' (24 hour) strings. */
 
 /** Default time */
 export const DEF_TIME = '00:00';
@@ -88,23 +84,4 @@ export function formatShort(fmt: TimeFormat, now = Date.now()): string {
     return `${String(hr24).padStart(2, '0')}:${min}`;
   }
   return `${hr24 % 12 || 12}:${min}`;
-}
-
-/**
- * Format a time of day for display.
- *
- * @param timeString - 'HH:MM', or undefined for the current time
- * @param format - 12 or 24 hour
- */
-export function format(timeString: string | undefined, fmt: TimeFormat): string {
-  const date = new Date();
-  if (timeString) {
-    const {hr, min} = parse(timeString);
-    date.setHours(hr, min, 0, 0);
-  }
-  return date.toLocaleTimeString([navigator.language, 'en-US'], {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: fmt !== TIME_FORMAT.HR_24,
-  });
 }

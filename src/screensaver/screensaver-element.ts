@@ -1,9 +1,6 @@
 /**
  * The screensaver: a set of slides with animated transitions between them.
- *
- * Ported from elements/screensaver-element. neon-animated-pages is replaced
- * by running each transition's entry/exit animations directly with the Web
- * Animations API. Weather and photo location have been removed.
+ * Each transition's entry/exit animations run with the Web Animations API.
  */
 
 import {css, html, LitElement, nothing} from 'lit';
@@ -262,7 +259,7 @@ export class ScreensaverElement extends LitElement implements SlideView {
     }
     return html`
       ${this.photos.map((photo, i) => html`
-        <screensaver-slide id="slide${i}" .photo=${photo} .index=${i} .viewType=${this.viewType}
+        <screensaver-slide id="slide${i}" .photo=${photo} .viewType=${this.viewType}
                            .timeLabel=${this.timeLabel}></screensaver-slide>`)}
       <img id="vcr" class="vcr" alt="" src=${this.photos.length ? 'images/play.png' : nothing}>
     `;

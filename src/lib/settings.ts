@@ -41,9 +41,6 @@ export const VIEW_TYPE = {
 } as const;
 export type ViewType = (typeof VIEW_TYPE)[keyof typeof VIEW_TYPE];
 
-/** State of an optional permission */
-export type PermState = 'notSet' | 'allowed' | 'denied';
-
 /**
  * A slider value with a selectable unit.
  * `base` is always in the setting's base unit (minutes for idleTime,
@@ -58,9 +55,7 @@ export interface UnitValue {
 export interface Settings {
   /** Screensaver enabled */
   enabled: boolean;
-  /** Run Chrome in background optional permission */
-  permBackground: PermState;
-  /** Run Chrome in background */
+  /** Run Chrome in background (holds the optional "background" permission) */
   allowBackground: boolean;
   /** Idle time before display (base: minutes) */
   idleTime: UnitValue;
@@ -108,7 +103,6 @@ export type SettingKey = keyof Settings;
 
 export const DEFAULTS: Readonly<Settings> = Object.freeze({
   enabled: true,
-  permBackground: 'notSet',
   allowBackground: false,
   idleTime: {base: 5, display: 5, unit: 0},
   transitionTime: {base: 30, display: 30, unit: 0},

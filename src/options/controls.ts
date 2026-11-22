@@ -1,11 +1,7 @@
 /**
- * Setting controls for the options page.
- *
- * Replaces @opus1269/common-custom-elements setting-toggle, setting-dropdown,
- * setting-slider, setting-time, setting-background and setting-link, which
- * were Polymer elements that each bound themselves to a localStorage key.
- * These are plain controls: the page passes the value in, and each control
- * fires a `setting-change` event ({name, value}) that the page persists.
+ * Setting controls for the options page. The page passes the value in, and
+ * each control fires a `setting-change` event ({name, value}) that the page
+ * persists.
  */
 
 import {css, type CSSResultGroup, html, LitElement, nothing, type PropertyValues} from 'lit';

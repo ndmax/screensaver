@@ -1,9 +1,6 @@
 /**
- * Error logging and the persisted "last error" shown in the options UI.
- *
- * Replaces @opus1269/chrome-ext-utils log.ts, last_error.ts and analytics.ts.
- * Google Analytics (Universal Analytics, shut down in 2023) has been removed;
- * errors go to the console and the most recent one is kept in storage.
+ * Error logging. Errors go to the console, and the most recent one is kept
+ * in storage for the options page's error viewer.
  */
 
 import {localize} from './locale';
@@ -24,7 +21,7 @@ export async function loadLastError(): Promise<LastError | null> {
   return value && value.message ? value : null;
 }
 
-export async function saveLastError(err: LastError): Promise<void> {
+async function saveLastError(err: LastError): Promise<void> {
   await chrome.storage.local.set({[KEY]: err});
 }
 

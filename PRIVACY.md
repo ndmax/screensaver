@@ -1,18 +1,11 @@
-#  Privacy Statement - Photo Screen Saver Chrome Extension
+# Privacy Statement - Photo Screen Saver Chrome Extension
 
 ### What information do we collect?
 
-If you choose to authorize read only access to your Google Photos account,
- the extension will retrieve and store unique id's, url links, and information
-  about your photos and albums.
- The extension will never modify any data in your Google Photos account.
-
-### How do we use the information?
-
-This information is used to display images of your photos and information
-about the photos in the screensaver.
+None. The extension reads photos from the folders on your computer that you
+add in its options, and keeps a list of those photos (file paths, sizes and
+dates) in Chrome's extension storage on your computer.
 
 ### What information do we share?
 
-No information is shared with others.
-
+Nothing leaves your computer. The extension makes no network requests.

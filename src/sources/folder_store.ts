@@ -11,7 +11,6 @@
 
 import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
-import * as Msg from '../lib/msg';
 import * as Settings from '../lib/settings';
 import {errMsg} from '../lib/utils';
 import {type ScanError, type ScanIO, scanFolder} from './folders';
@@ -95,15 +94,10 @@ async function scanOne(path: string, prev: Photo[], prevStatus: FolderStatus | u
     } satisfies FolderStatus});
     return;
   }
-  try {
-    await chrome.storage.local.set({
-      [photosKey(path)]: res.photos,
-      [statusKey(path)]: {count: res.photos.length, skipped: res.skipped, scannedAt: Date.now(), scanning: false} satisfies FolderStatus,
-    });
-  } catch (err) {
-    Msg.broadcast({message: 'storageExceeded'});
-    throw new Error(`Failed to save photos for ${path}: ${errMsg(err)}`, {cause: err});
-  }
+  await chrome.storage.local.set({
+    [photosKey(path)]: res.photos,
+    [statusKey(path)]: {count: res.photos.length, skipped: res.skipped, scannedAt: Date.now(), scanning: false} satisfies FolderStatus,
+  });
 }
 
 async function run(rescan: boolean, io: ScanIO): Promise<void> {

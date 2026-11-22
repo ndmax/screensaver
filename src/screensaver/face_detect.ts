@@ -1,21 +1,16 @@
 /**
- * Face detection for pan and scan.
- *
- * Replaces face-api.js 0.19 (abandoned 2020) with MediaPipe's BlazeFace
- * full-range detector. The library and its ~15MB WebAssembly runtime are
- * only loaded when face detection is turned on.
+ * Face detection for pan and scan, with MediaPipe's BlazeFace full-range
+ * detector. The library and its ~15MB WebAssembly runtime are only loaded
+ * when face detection is turned on.
  *
  * The short-range model only finds faces that fill much of the frame
- * (selfies), so ordinary photos got no faces and pan and scan fell back to
- * a small random zoom. The full-range model, run on the whole photo and on
+ * (selfies). The full-range model, run on the whole photo and on
  * overlapping quarters (face_tiles.ts), finds faces down to a few percent of
  * the photo's width.
  */
 
 import type {FaceDetector} from '@mediapipe/tasks-vision';
 import {type Box, mergeBoxes, tiles} from './face_tiles';
-
-export type {Box};
 
 const WASM_PATH = 'mediapipe/wasm';
 const MODEL_PATH = 'models/blaze_face_full_range.tflite';

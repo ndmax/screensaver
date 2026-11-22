@@ -1,9 +1,4 @@
-/**
- * Shows the last error the extension logged.
- *
- * Ported from elements/pages/error-page. The "email support" button is gone:
- * the original developer's support address is no longer monitored.
- */
+/** Shows the last error the extension logged. */
 
 import {css, html, LitElement} from 'lit';
 import {customElement, state} from 'lit/decorators.js';

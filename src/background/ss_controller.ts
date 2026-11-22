@@ -1,8 +1,4 @@
-/**
- * Open and close the screensaver windows.
- *
- * Ported from scripts/background/ss_controller.ts.
- */
+/** Open and close the screensaver windows. */
 
 import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
@@ -29,14 +25,10 @@ export function isActive(): boolean {
   return enabled && (!keepAwake || inRange);
 }
 
-/**
- * Display the screensaver(s). Always show the screensaver through this call.
- *
- * @param single - only show on the main display
- */
-export async function display(single: boolean): Promise<void> {
+/** Display the screensaver(s). Always show the screensaver through this call. */
+export async function display(): Promise<void> {
   try {
-    if (!single && Settings.get('allDisplays')) {
+    if (Settings.get('allDisplays')) {
       await openOnAllDisplays();
     } else {
       await open();
@@ -132,7 +124,7 @@ export async function onIdleStateChanged(state: `${chrome.idle.IdleState}`): Pro
   try {
     if (state === 'idle') {
       if (isActive() && !(await isShowing())) {
-        await display(false);
+        await display();
       }
     } else if (state === 'locked') {
       close();

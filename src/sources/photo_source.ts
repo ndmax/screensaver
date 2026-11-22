@@ -1,10 +1,4 @@
-/**
- * A photo as persisted.
- *
- * Replaces scripts/sources/photo_source.ts. The online sources and their
- * PhotoSource classes are gone; photos come from local folders
- * (sources/folders.ts).
- */
+/** A photo from a local folder (sources/folders.ts), as persisted. */
 export interface Photo {
   /** file:// URL of the image */
   url: string;

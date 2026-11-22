@@ -1,8 +1,4 @@
-/**
- * Screensaver page entry point: settings, input handling, and messages.
- *
- * Ported from scripts/screensaver/screensaver.ts and ss_events.ts.
- */
+/** Screensaver page entry point: settings, input handling, and messages. */
 
 import '@fontsource/roboto/latin-200.css';
 import '@fontsource/roboto/latin-300.css';

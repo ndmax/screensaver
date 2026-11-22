@@ -1,8 +1,4 @@
-/**
- * Slider units for settings stored as a UnitValue.
- *
- * Ported from the unit math in @opus1269/common-custom-elements setting-slider.
- */
+/** Slider units for settings stored as a UnitValue. */
 
 import {localize} from '../lib/locale';
 import type {UnitValue} from '../lib/settings';
