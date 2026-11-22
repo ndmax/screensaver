@@ -3,7 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  {ignores: ['dist/', 'node_modules/']},
+  {ignores: ['dist/', 'node_modules/', 'release/']},
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
@@ -22,8 +22,8 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
-    // browser tests: plain Node scripts driving Chromium
-    files: ['test/e2e/**/*.mjs'],
+    // plain Node scripts: browser tests driving Chromium, release tooling
+    files: ['test/e2e/**/*.mjs', 'scripts/**/*.mjs'],
     extends: [tseslint.configs.disableTypeChecked],
     languageOptions: {globals: {...globals.node}},
   },
