@@ -1,4 +1,4 @@
-# Open Source Licenses Used By Photo Screen Saver Chrome Extension
+# Open Source Licenses Used By Local Photo Screen Saver Chrome Extension
 
 ## Lit
 

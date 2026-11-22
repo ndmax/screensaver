@@ -1,4 +1,4 @@
-# Privacy Statement - Photo Screen Saver Chrome Extension
+# Privacy Statement - Local Photo Screen Saver Chrome Extension
 
 ### What information do we collect?
 
