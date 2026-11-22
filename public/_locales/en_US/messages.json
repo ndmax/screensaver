@@ -1,7 +1,4 @@
 {
-  "allowed": {
-    "message": "Allowed"
-  },
   "browser_action_title": {
     "message": "Photo Screen Saver - click for options"
   },
@@ -10,7 +7,7 @@
     "description": "All Caps"
   },
   "chrome_extension_description": {
-    "message": "A screensaver with multiple photo sources, including your Google Photos."
+    "message": "A screensaver that shows a slide show of photos from folders on your computer."
   },
   "chrome_extension_name": {
     "message": "Photo Screen Saver"
@@ -26,9 +23,6 @@
   "days": {
     "message": "days"
   },
-  "denied": {
-    "message": "Denied"
-  },
   "disable": {
     "message": "Disable (Alt+Shift+Q)"
   },
@@ -41,26 +35,11 @@
   "err_error": {
     "message": "An error occurred"
   },
-  "err_network": {
-    "message": "Network error"
-  },
-  "err_no_internet": {
-    "message": "Internet disconnected"
-  },
   "err_optional_permissions": {
     "message": "Failed to modify an optional permission"
   },
   "err_show_ss": {
     "message": "Failed to display screensaver"
-  },
-  "err_status": {
-    "message": "Status"
-  },
-  "err_storage_desc": {
-    "message": "Deselect other photo sources and try again."
-  },
-  "err_storage_title": {
-    "message": "Exceeded storage limits"
   },
   "err_unknown": {
     "message": "unknown"
@@ -124,9 +103,6 @@
   },
   "help_documentation": {
     "message": "Documentation"
-  },
-  "help_faq": {
-    "message": "Frequently asked questions"
   },
   "help_licenses": {
     "message": "Open source licenses"
@@ -210,9 +186,6 @@
   "no_photos": {
     "message": "No Photos"
   },
-  "notSet": {
-    "message": "Not Set"
-  },
   "off": {
     "message": "is Off"
   },
@@ -229,9 +202,6 @@
   },
   "open_ext_settings": {
     "message": "Open extension settings"
-  },
-  "photo": {
-    "message": "photo"
   },
   "power_abbrev": {
     "message": "PWR",
@@ -307,7 +277,7 @@
     "message": "Apply the \"Ken Burns\" effect to the photos"
   },
   "setting_photo_clicks": {
-    "message": "Show source of photo on mouse click, if available"
+    "message": "Open the photo in a new tab on mouse click"
   },
   "setting_photo_sizing": {
     "message": "Photo display mode"

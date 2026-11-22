@@ -1,7 +1,6 @@
 import {describe, expect, it} from 'vitest';
 import {TRANS_TYPE, VIEW_TYPE} from '../src/lib/settings';
 import {formatShort, TIME_FORMAT} from '../src/lib/time';
-import {authorLabel} from '../src/screensaver/labels';
 import {computeLayout} from '../src/screensaver/layout';
 import {isBadAspect, SSPhoto} from '../src/screensaver/ss_photo';
 import {PhotoList} from '../src/screensaver/ss_photos';
@@ -48,13 +47,9 @@ describe('computeLayout', () => {
   });
 });
 
-describe('labels and photos', () => {
-  const photo = (author: string) => new SSPhoto({url: 'u', author, asp: '1.5'});
-
-  it('authorLabel is the folder name, when enabled', () => {
-    expect(authorLabel(photo('Hawaii 2019 / Day 1'), true)).toBe('Hawaii 2019 / Day 1');
-    expect(authorLabel(photo('Hawaii 2019'), false)).toBe('');
-    expect(authorLabel(null, true)).toBe('');
+describe('photos', () => {
+  it('SSPhoto takes its label from the folder', () => {
+    expect(new SSPhoto({url: 'u', author: 'Hawaii 2019 / Day 1', asp: '1.5'}).photographer).toBe('Hawaii 2019 / Day 1');
   });
 
   it('isBadAspect', () => {
@@ -73,10 +68,10 @@ describe('labels and photos', () => {
     ], (asp) => asp < 1);
     expect(list.count).toBe(3);
     const a = list.getNextUsable()!;
-    expect(a.getUrl()).toBe('a');
+    expect(a.url).toBe('a');
     list.get(1)!.markBad(); // c
-    expect(list.getNextUsable([a])!.getUrl()).toBe('d');
-    expect(list.getNextUsable([list.get(2)])!.getUrl()).toBe('a');
+    expect(list.getNextUsable([a])!.url).toBe('d');
+    expect(list.getNextUsable([list.get(2)])!.url).toBe('a');
   });
 });
 

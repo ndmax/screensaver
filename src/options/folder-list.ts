@@ -1,7 +1,6 @@
 /**
  * The list of photo folders: add a path, remove one, and see each folder's
- * photo count or error. Replaces the original's photo source toggles and
- * Google Photos album picker.
+ * photo count or error.
  *
  * The folder list is the photoFolders setting; the service worker scans
  * folders when it changes and writes a status per folder, which this element

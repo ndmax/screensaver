@@ -1,13 +1,6 @@
 /**
  * Options page: the app shell, with a menu and the Settings, Error and Help
  * pages.
- *
- * Ported from elements/app-main (Polymer app-drawer-layout,
- * neon-animated-pages, paper-dialog). Removed menu items:
- * - Google Photos and its permission dialog: the source is gone; photos come
- *   from local folders.
- * - Request support, Rate, and the Pushy Clipboard ad: the Web Store
- *   listings are gone.
  */
 
 import '@fontsource/roboto/latin-300.css';
@@ -36,8 +29,6 @@ interface MenuItem {
   route?: Route;
   /** Action instead of a page */
   action?: () => void;
-  /** External page */
-  url?: string;
   divider?: boolean;
 }
 
@@ -197,7 +188,6 @@ export class OptionsApp extends LitElement {
     {label: localize('menu_preview'), icon: 'pageview', action: () => this.preview()},
     {label: localize('menu_error'), icon: 'error', route: 'error', divider: true},
     {label: localize('help'), icon: 'help', route: 'help'},
-    {label: localize('help_faq'), icon: 'help', url: 'https://opus1269.github.io/screensaver/faq.html'},
   ];
 
   private cleanup: (() => void)[] = [];
@@ -214,7 +204,6 @@ export class OptionsApp extends LitElement {
             setDarkMode(Settings.get('darkMode'));
           }
         }),
-        Msg.listen(this.onMessage),
     );
     this.addEventListener('show-error', this.onShowError);
     void this.updateHasError();
@@ -283,9 +272,7 @@ export class OptionsApp extends LitElement {
 
   private onMenu(item: MenuItem): void {
     this.setDrawer(false);
-    if (item.url) {
-      window.open(item.url, '_blank', 'noopener');
-    } else if (item.action) {
+    if (item.action) {
       item.action();
     } else if (item.route) {
       location.hash = item.route;
@@ -318,16 +305,6 @@ export class OptionsApp extends LitElement {
 
   private onShowError = (ev: CustomEvent<ShowErrorDetail>): void => {
     this.showError(ev.detail.title, ev.detail.text);
-  };
-
-  private onMessage: Msg.Handler = (msg) => {
-    switch (msg.message) {
-      case 'storageExceeded':
-        this.showError(localize('err_storage_title'), localize('err_storage_desc'));
-        return undefined;
-      default:
-        return undefined;
-    }
   };
 }
 

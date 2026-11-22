@@ -1,9 +1,8 @@
 /**
  * Install, update and settings-change processing.
  *
- * Ported from scripts/background/data.ts. The DEFS object moved to
- * lib/settings.ts. The v1-v29 localStorage migrations are dropped: a rebuilt
- * extension has a new extension ID, so it cannot see the old extension's data.
+ * The original extension's localStorage migrations aren't carried over: this
+ * build has a new extension ID, so it can't see that extension's data.
  */
 
 import {localize} from '../lib/locale';
@@ -18,14 +17,11 @@ import * as ContextMenus from './context_menus';
 import * as SSController from './ss_controller';
 
 /** Version of the stored data. Bump and add a migration when it changes. */
-export const DATA_VERSION = 2;
+export const DATA_VERSION = 3;
 const VERSION_KEY = 'dataVersion';
 
-/**
- * Settings that restoreDefaults leaves alone: permBackground mirrors Chrome's
- * grant, and the folder list is the user's content, not a preference.
- */
-const KEEP_ON_RESTORE: readonly SettingKey[] = ['permBackground', 'photoFolders'];
+/** Settings that restoreDefaults leaves alone: the folder list is the user's content, not a preference. */
+const KEEP_ON_RESTORE: readonly SettingKey[] = ['photoFolders'];
 
 /** Keys of the removed Unsplash source and face detection permission (v1) */
 const V1_REMOVED_KEYS = [
@@ -61,6 +57,10 @@ export async function update(): Promise<void> {
 async function migrate(oldVersion: number): Promise<void> {
   if (oldVersion < 2) {
     await chrome.storage.local.remove(V1_REMOVED_KEYS);
+  }
+  if (oldVersion < 3) {
+    // write-only record of the background permission; allowBackground covers it
+    await chrome.storage.local.remove('permBackground');
   }
 }
 

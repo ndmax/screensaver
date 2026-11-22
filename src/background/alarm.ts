@@ -1,8 +1,4 @@
-/**
- * chrome.alarms scheduling.
- *
- * Ported from scripts/background/alarm.ts. The weather alarm is gone.
- */
+/** chrome.alarms scheduling. */
 
 import {localize} from '../lib/locale';
 import * as Log from '../lib/log';
@@ -71,7 +67,7 @@ async function setActiveState(): Promise<void> {
   }
   const state = await chrome.idle.queryState(SSController.getIdleSeconds());
   if (Settings.get('enabled') && state === 'idle') {
-    await SSController.display(false);
+    await SSController.display();
   }
   await updateBadgeTextAlarm();
 }

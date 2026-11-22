@@ -1,9 +1,6 @@
 /**
- * The Settings page: three tabs of setting controls.
- *
- * Ported from elements/pages/settings-page. The original's online photo
- * sources (Google Photos, Flickr, reddit, Chromecast, Unsplash) and weather
- * are gone; photos come from local folders (the folder-list element).
+ * The Settings page: three tabs of setting controls. Photo sources are the
+ * folder-list element.
  */
 
 import {css, html, LitElement, nothing} from 'lit';
@@ -24,11 +21,8 @@ import {icon} from './icons';
 import {shared} from './styles';
 import {idleTimeUnits, transitionTimeUnits} from './units';
 
-export const TAB = {CONTROLS: 0, DISPLAY: 1, SOURCES: 2} as const;
+const TAB = {CONTROLS: 0, DISPLAY: 1, SOURCES: 2} as const;
 type Tab = (typeof TAB)[keyof typeof TAB];
-
-const HELP_URL = 'https://opus1269.github.io/screensaver/help/settings.html';
-const HELP_ANCHORS = ['ss_controls', 'display_controls', 'photo_sources'];
 
 export interface ShowErrorDetail {
   title: string;
@@ -172,8 +166,6 @@ export class SettingsPage extends LitElement {
           <button id="restore" class="icon-button" ?disabled=${off}
                   title=${localize('tooltip_restore')} aria-label=${localize('tooltip_restore')}
                   @click=${() => this.confirmRestore.showModal()}>${icon('settings-backup-restore')}</button>
-          <button class="icon-button" title=${localize('help')} aria-label=${localize('help')}
-                  @click=${this.openHelp}>${icon('help')}</button>
           <input id="enabled" class="main-toggle" type="checkbox" role="switch" .checked=${live(s.enabled)}
                  title=${localize('tooltip_settings_toggle')}
                  @change=${(e: Event) => this.save('enabled', (e.target as HTMLInputElement).checked)}>
@@ -302,40 +294,31 @@ export class SettingsPage extends LitElement {
     if (!Settings.isSettingKey(name)) {
       return;
     }
-    switch (name) {
-      case 'allowBackground':
-        void this.setWithPermission(name, value as boolean, Permissions.BACKGROUND, '');
-        break;
-      default:
-        void this.save(name, value as never);
+    if (name === 'allowBackground') {
+      void this.setAllowBackground(value as boolean);
+    } else {
+      void this.save(name, value as never);
     }
   };
 
   /**
-   * Turn on a setting that needs an optional permission, or turn it off and
+   * Turn on allowBackground by requesting its permission, or turn it off and
    * give the permission back. Chrome only shows the permission prompt during
    * a user gesture, so the request is made before anything else is awaited.
-   *
-   * @param errText - shown if the user denies the permission; none if empty
    */
-  private async setWithPermission(key: 'allowBackground', on: boolean,
-                                  perm: Permissions.PermType, errText: string): Promise<void> {
+  private async setAllowBackground(on: boolean): Promise<void> {
     if (!on) {
-      await this.save(key, false);
-      await Permissions.remove(perm).catch((err: unknown) => Log.warn(errMsg(err), 'SettingsPage.remove'));
+      await this.save('allowBackground', false);
+      await Permissions.removeBackground().catch((err: unknown) => Log.warn(errMsg(err), 'SettingsPage.remove'));
       return;
     }
     let granted = false;
-    let error = '';
     try {
-      granted = await Permissions.request(perm);
+      granted = await Permissions.requestBackground();
     } catch (err) {
-      error = errMsg(err);
+      showError(this, localize('err_optional_permissions'), errMsg(err));
     }
-    await this.save(key, granted);
-    if (!granted && (error || errText)) {
-      showError(this, localize('err_optional_permissions'), error || errText);
-    }
+    await this.save('allowBackground', granted);
   }
 
   private onConfirmRestore = (): void => {
@@ -345,10 +328,6 @@ export class SettingsPage extends LitElement {
       });
     }
     this.confirmRestore.returnValue = '';
-  };
-
-  private openHelp = (): void => {
-    window.open(`${HELP_URL}#${HELP_ANCHORS[this.tab]}`, '_blank', 'noopener');
   };
 }
 

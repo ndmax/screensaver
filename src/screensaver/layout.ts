@@ -1,9 +1,8 @@
 /**
  * Slide geometry for each photo sizing mode.
  *
- * Ported from the render* methods of elements/screensaver-slide. The original
- * mutated styles imperatively; this computes them so the slide can render
- * them declaratively (and so they can be unit tested).
+ * Computed rather than applied, so the slide renders them declaratively and
+ * they can be unit tested.
  */
 
 import {VIEW_TYPE, type ViewType} from '../lib/settings';

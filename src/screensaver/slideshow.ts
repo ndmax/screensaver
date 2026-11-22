@@ -2,10 +2,7 @@
  * Slide show sequencing: timing, photo replacement, pause, and interactive
  * back/forward history.
  *
- * Ported from scripts/screensaver/ss_runner.ts and ss_history.ts, plus the
- * photo bookkeeping methods of screensaver-element (findLoadedPhoto,
- * hasUsablePhoto, replaceAllPhotos). The original modules reached into a
- * global element; this class talks to the page through SlideView instead.
+ * The class talks to the page through SlideView, so it can be unit tested.
  *
  * There is a fixed set of slides (at most MAX_SLIDES). Each holds a photo
  * that preloads while hidden. Every transition shows the next loaded slide,
@@ -140,7 +137,7 @@ export class Slideshow {
    *
    * @param delay - ms before the first photo, for a smooth start
    */
-  start(delay = 2000): void {
+  start(delay: number): void {
     this.timeoutId = setTimeout(() => void this.runShow(), delay);
   }
 
@@ -162,7 +159,7 @@ export class Slideshow {
   }
 
   /** Is the slide one of the two in the current transition */
-  isCurrentPair(idx: number): boolean {
+  private isCurrentPair(idx: number): boolean {
     return idx === this.view.selected() || idx === this.lastSelected;
   }
 
@@ -309,7 +306,7 @@ export class Slideshow {
    *
    * @returns slide index, or -1 if none ready
    */
-  findLoadedPhoto(idx: number): number {
+  private findLoadedPhoto(idx: number): number {
     if (!this.hasUsablePhoto()) {
       this.replaceAllPhotos();
     }

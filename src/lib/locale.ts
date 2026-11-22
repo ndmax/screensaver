@@ -1,10 +1,4 @@
 /**
- * i18n helpers.
- *
- * Ported from @opus1269/chrome-ext-utils locales.ts.
- */
-
-/**
  * Get a localized string from _locales/<locale>/messages.json.
  *
  * @param key - message name

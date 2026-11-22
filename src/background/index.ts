@@ -1,8 +1,7 @@
 /**
  * Service worker entry point.
  *
- * Ported from scripts/background/background.ts. MV3 service workers are
- * stopped when idle and restarted for each event, so:
+ * MV3 service workers are stopped when idle and restarted for each event, so:
  * - every listener is registered synchronously at top level, and
  * - every handler awaits Settings.ready() before reading settings.
  */
@@ -52,7 +51,6 @@ chrome.contextMenus.onClicked.addListener(withSettings('onMenuClicked', ContextM
 
 chrome.commands.onCommand.addListener(withSettings('onCommand', ContextMenus.onCommand));
 
-// Replaces the window 'storage' event listener of the MV2 background page.
 Settings.subscribe((keys) => {
   void (async () => {
     await Settings.ready();
@@ -67,7 +65,7 @@ Msg.listen((msg) => {
     case 'restoreDefaults':
       return Settings.ready().then(Data.restoreDefaults).then(() => ({message: 'OK'}));
     case 'showScreensaver':
-      return Settings.ready().then(() => SSController.display(false)).then(() => ({message: 'OK'}));
+      return Settings.ready().then(() => SSController.display()).then(() => ({message: 'OK'}));
     default:
       return undefined;
   }

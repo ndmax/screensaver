@@ -1,7 +1,4 @@
-/**
- * Material Design icons (Apache 2.0), from the original elements/my_icons.ts
- * iconset.
- */
+/** Material Design icons (Apache 2.0). */
 
 import {svg} from 'lit';
 

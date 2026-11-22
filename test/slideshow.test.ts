@@ -27,12 +27,12 @@ class FakeView implements SlideView {
   }
   slideCount() { return this.slides.length; }
   selected() { return this.sel; }
-  select(idx: number) { this.sel = idx; this.shown.push(this.slides[idx].getUrl()); }
+  select(idx: number) { this.sel = idx; this.shown.push(this.slides[idx].url); }
   getPhoto(idx: number) { return this.slides[idx]; }
   getPhotos() { return this.slides; }
   setPhoto(idx: number, photo: SSPhoto) { this.slides[idx] = photo; }
-  isLoaded(idx: number) { return !!this.slides[idx] && !this.failing.has(this.slides[idx].getUrl()); }
-  isError(idx: number) { return !!this.slides[idx] && this.failing.has(this.slides[idx].getUrl()); }
+  isLoaded(idx: number) { return !!this.slides[idx] && !this.failing.has(this.slides[idx].url); }
+  isError(idx: number) { return !!this.slides[idx] && this.failing.has(this.slides[idx].url); }
   prep() { return Promise.resolve(); }
   isNoPhotos() { return this.noPhotos; }
   setNoPhotos() { this.noPhotos = true; }

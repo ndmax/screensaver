@@ -1,8 +1,4 @@
-/**
- * The list of all photos for a screensaver session.
- *
- * Ported from scripts/screensaver/ss_photos.ts (module state became a class).
- */
+/** The list of all photos for a screensaver session. */
 
 import {shuffleArray} from '../lib/utils';
 import type {Photo} from '../sources/photo_source';

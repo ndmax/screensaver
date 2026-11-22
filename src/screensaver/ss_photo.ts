@@ -1,20 +1,16 @@
-/**
- * A photo in the screensaver session.
- *
- * Ported from scripts/screensaver/ss_photo.ts.
- */
+/** A photo in the screensaver session. */
 
 import type {Photo} from '../sources/photo_source';
 
 export class SSPhoto {
-  private url: string;
+  readonly url: string;
   private bad = false;
   readonly photographer: string;
   readonly aspectRatio: number;
 
   constructor(source: Photo) {
     this.url = source.url;
-    this.photographer = source.author ?? '';
+    this.photographer = source.author;
     this.aspectRatio = parseFloat(source.asp);
   }
 
@@ -24,10 +20,6 @@ export class SSPhoto {
 
   markBad(): void {
     this.bad = true;
-  }
-
-  getUrl(): string {
-    return this.url;
   }
 
   /** Open the image file in a new tab */

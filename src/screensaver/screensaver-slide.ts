@@ -1,9 +1,9 @@
 /**
  * One slide: a photo, its author label, and the clock.
  *
- * Ported from elements/screensaver-slide (Polymer + iron-image). The entry
- * and exit transitions are run on this element by screensaver-element; this
- * element handles layout and the pan and scan ("Ken Burns") effect.
+ * The entry and exit transitions are run on this element by
+ * screensaver-element; this element handles layout and the pan and scan
+ * ("Ken Burns") effect.
  */
 
 import {css, html, LitElement, nothing, type PropertyValues} from 'lit';
@@ -15,17 +15,9 @@ import {TRANS_TYPE, VIEW_TYPE, type ViewType} from '../lib/settings';
 import {TIME_FORMAT} from '../lib/time';
 import {errMsg} from '../lib/utils';
 import * as FaceDetect from './face_detect';
-import {authorLabel} from './labels';
 import {computeLayout} from './layout';
-import {facePan, PAN_EASING, randomPan} from './pan';
+import {facePan, type FaceTarget, PAN_EASING, randomPan} from './pan';
 import type {SSPhoto} from './ss_photo';
-
-interface Rect {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
 
 @customElement('screensaver-slide')
 export class ScreensaverSlide extends LitElement {
@@ -66,7 +58,6 @@ export class ScreensaverSlide extends LitElement {
 
   @property({attribute: false}) photo: SSPhoto | undefined;
   @property({type: Number}) viewType: ViewType = VIEW_TYPE.LETTERBOX;
-  @property({type: Number}) index = 0;
   @property() timeLabel = '';
 
   /** Screen size used for layout */
@@ -84,12 +75,12 @@ export class ScreensaverSlide extends LitElement {
 
   /** The photo's image has loaded */
   isLoaded(): boolean {
-    return !!this.photo && this.loadedUrl === this.photo.getUrl();
+    return !!this.photo && this.loadedUrl === this.photo.url;
   }
 
   /** The photo's image failed to load */
   isError(): boolean {
-    return !!this.photo && this.errorUrl === this.photo.getUrl();
+    return !!this.photo && this.errorUrl === this.photo.url;
   }
 
   /** Get ready to be shown: refresh layout and start pan and scan. */
@@ -112,7 +103,6 @@ export class ScreensaverSlide extends LitElement {
 
   private onError = (ev: Event): void => {
     this.errorUrl = (ev.target as HTMLImageElement).getAttribute('src') ?? '';
-    this.dispatchEvent(new CustomEvent('image-error', {detail: {index: this.index}, bubbles: true, composed: true}));
   };
 
   override render() {
@@ -120,7 +110,7 @@ export class ScreensaverSlide extends LitElement {
     if (!photo) {
       return nothing;
     }
-    const url = photo.getUrl();
+    const url = photo.url;
     const showTime = Settings.get('showTime') !== TIME_FORMAT.NONE;
     const layout = computeLayout(this.viewType, photo.aspectRatio, this.screenW, this.screenH,
         {showTime, largeTime: Settings.get('largeTime')});
@@ -133,7 +123,7 @@ export class ScreensaverSlide extends LitElement {
       </div>
       ${showTime ? html`<div class="time" style=${styleMap(layout.time)}>${this.timeLabel}</div>` : nothing}
       <div class="author" style=${styleMap(layout.author)}>
-        ${authorLabel(photo, Settings.get('showPhotog'))}
+        ${Settings.get('showPhotog') ? photo.photographer : ''}
       </div>
     `;
   }
@@ -144,7 +134,7 @@ export class ScreensaverSlide extends LitElement {
   }
 
   /** Bounding box of all faces, relative to the photo center, in display px */
-  private async faceTarget(img: HTMLImageElement, width: number, height: number): Promise<Rect | null> {
+  private async faceTarget(img: HTMLImageElement, width: number, height: number): Promise<FaceTarget | null> {
     const boxes = await FaceDetect.detectAll(img);
     if (!boxes.length) {
       return null;
@@ -161,7 +151,7 @@ export class ScreensaverSlide extends LitElement {
     }
     const scaleX = width / img.naturalWidth;
     const scaleY = height / img.naturalHeight;
-    const target: Rect = {
+    const target: FaceTarget = {
       x: Math.round((left + (right - left) / 2 - img.naturalWidth / 2) * scaleX),
       y: Math.round((top + (bottom - top) / 2 - img.naturalHeight / 2) * scaleY),
       width: Math.round((right - left) * scaleX),
@@ -186,7 +176,7 @@ export class ScreensaverSlide extends LitElement {
       return;
     }
     try {
-      let target: Rect | null = null;
+      let target: FaceTarget | null = null;
       if (Settings.get('detectFaces')) {
         target = await this.faceTarget(img, width, height);
       }

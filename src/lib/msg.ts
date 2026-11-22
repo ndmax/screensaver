@@ -1,10 +1,6 @@
 /**
- * Typed runtime messages between extension contexts.
- *
- * Replaces @opus1269/chrome-ext-utils msg.ts and scripts/my_msg.ts.
- * The original STORE and HIGHLIGHT messages are gone: chrome.storage.onChanged
- * reaches every context, and chrome.runtime.openOptionsPage() focuses an
- * existing options tab.
+ * Typed runtime messages between extension contexts. Settings changes don't
+ * need messages: chrome.storage.onChanged reaches every context.
  */
 
 export type Message =
@@ -15,11 +11,7 @@ export type Message =
   /** Close all screensaver windows (service worker -> screensavers) */
   | {message: 'closeScreensaver'}
   /** Is a screensaver showing? Any screensaver replies (service worker -> screensavers) */
-  | {message: 'isScreensaverShowing'}
-  /** A storage write failed for lack of space */
-  | {message: 'storageExceeded'};
-
-export type MessageType = Message['message'];
+  | {message: 'isScreensaverShowing'};
 
 export interface Response {
   message?: string;
