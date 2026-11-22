@@ -12,6 +12,7 @@ import * as Settings from '../lib/settings';
 import type {SettingKey} from '../lib/settings';
 import {TIME_FORMAT, type TimeFormat} from '../lib/time';
 import {errMsg} from '../lib/utils';
+import * as FolderStore from '../sources/folder_store';
 import * as Alarm from './alarm';
 import * as ContextMenus from './context_menus';
 import * as SSController from './ss_controller';
@@ -90,12 +91,16 @@ export async function processState(key: SettingKey | 'all' = 'all'): Promise<voi
       await processKeepAwake();
       processIdleTime();
       await Alarm.updatePhotoAlarm();
+      syncFolders(true);
       return;
     }
 
     switch (key) {
       case 'enabled':
         await processEnabled();
+        break;
+      case 'photoFolders':
+        syncFolders(false);
         break;
       case 'idleTime':
         processIdleTime();
@@ -112,6 +117,14 @@ export async function processState(key: SettingKey | 'all' = 'all'): Promise<voi
   } catch (err) {
     Log.error(errMsg(err), `Data.processState(${key})`);
   }
+}
+
+/**
+ * Update the folder photos in the background. Not awaited: a first scan of a
+ * large folder can take minutes, and other settings shouldn't wait for it.
+ */
+function syncFolders(rescan: boolean): void {
+  FolderStore.sync({rescan}).catch((err: unknown) => Log.error(errMsg(err), 'Data.syncFolders'));
 }
 
 /**
