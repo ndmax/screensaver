@@ -47,6 +47,7 @@ npm run build                # type-check + build to dist/
 npm test                     # unit tests
 npm run lint
 npm run test:e2e             # browser tests, see test/e2e/README.md
+npm run package              # build + zip for the Chrome Web Store, see docs/store-listing.md
 ```
 
 Load `dist/` from `chrome://extensions` with Developer mode on, using "Load unpacked".
