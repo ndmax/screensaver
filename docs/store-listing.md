@@ -8,12 +8,10 @@ refuses to run if they differ.
 
 ## Name
 
-The store shows the name from the manifest (`chrome_extension_name` in
-`public/_locales/en_US/messages.json`), currently **Photo Screen Saver**. The
-original extension was listed under that exact name by another developer, so
-reusing it risks being flagged as impersonation. Suggested:
-
-> Photo Screen Saver – Local Folders
+**Photo Screen Saver – Local Folders**, taken from the manifest
+(`chrome_extension_name` in `public/_locales/en_US/messages.json`). The
+original extension was listed as "Photo Screen Saver" by another developer;
+the suffix keeps this listing distinct so it isn't flagged as impersonation.
 
 ## Summary (manifest description, 132 characters max)
 
@@ -39,7 +37,7 @@ FEATURES
 • Keyboard shortcuts to pause and step back and forward
 
 SETUP (required)
-1. Open chrome://extensions, click Details on Photo Screen Saver, and turn on "Allow access to file URLs". Chrome does not let the extension read your photos without it.
+1. Open chrome://extensions, click Details on Photo Screen Saver – Local Folders, and turn on "Allow access to file URLs". Chrome does not let the extension read your photos without it.
 2. Open the extension's Options → Photo Sources and add one or more folders, for example /home/me/Pictures/Hawaii 2019 or C:\Users\me\Pictures\Hawaii 2019. Subfolders are included.
 
 Supported formats: JPEG, PNG, WebP, GIF, AVIF and BMP. Videos and HEIC files are skipped.
