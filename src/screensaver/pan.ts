@@ -1,10 +1,14 @@
 /**
- * Random pan and zoom for photos with no detected faces.
+ * Pan and zoom ("Ken Burns") targets for a slide.
  *
- * The original kept this pan small (at most 20% of the zoom margin, often
- * near zero), which looked like zooming straight into the center. This pans
- * 50-90% of the way to the photo's edges, in a random direction, without
- * ever showing past them.
+ * - With faces, zoom toward them and pan to centre them, as far as the
+ *   photo's edges allow.
+ * - Without faces, zoom a random amount and pan 50-90% of the way to the
+ *   edges in a random direction. The original kept this pan small (often
+ *   near zero), which looked like zooming straight into the center.
+ *
+ * The animation runs at a constant speed (linear). The original's
+ * ease-in-out barely moved at first, then sped up.
  */
 
 export interface Pan {
@@ -15,8 +19,13 @@ export interface Pan {
   y: number;
 }
 
-const MIN_SCALE = 1.2;
-const MAX_SCALE = 1.6;
+/** Random zoom range */
+export const MIN_SCALE = 1.15;
+export const MAX_SCALE = 1.35;
+/** Most zoom toward faces */
+export const MAX_FACE_SCALE = 1.4;
+/** Animation easing: constant speed */
+export const PAN_EASING = 'linear';
 const MIN_FRACTION = 0.5;
 const MAX_FRACTION = 0.9;
 
@@ -40,4 +49,25 @@ export function randomPan(width: number, height: number, rnd: () => number = Mat
   const x = axis(width);
   const y = axis(height);
   return {scale, x, y};
+}
+
+/** Faces' bounding box, relative to the photo centre, in displayed px */
+export interface FaceTarget {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+/** Move toward -offset (to centre it), no further than limit */
+const toward = (offset: number, limit: number): number => Math.max(-limit, Math.min(limit, -offset)) || 0;
+
+/** Zoom toward faces and pan to centre them, without showing past the photo's edges */
+export function facePan(target: FaceTarget, width: number, height: number): Pan {
+  const scale = Math.max(1, Math.min(MAX_FACE_SCALE, width / target.width, height / target.height));
+  return {
+    scale,
+    x: toward(target.x, maxPan(scale, width)),
+    y: toward(target.y, maxPan(scale, height)),
+  };
 }
