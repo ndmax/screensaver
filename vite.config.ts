@@ -1,7 +1,21 @@
+import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
-import {defineConfig} from 'vite';
+import {defineConfig, type Plugin} from 'vite';
 
 const root = resolve(import.meta.dirname, 'src');
+
+/** Copy MediaPipe's WebAssembly runtime (used by face detection) into the build. */
+function mediapipeWasm(): Plugin {
+  const dir = resolve(import.meta.dirname, 'node_modules/@mediapipe/tasks-vision/wasm');
+  return {
+    name: 'mediapipe-wasm',
+    generateBundle() {
+      for (const file of ['vision_wasm_internal.js', 'vision_wasm_internal.wasm']) {
+        this.emitFile({type: 'asset', fileName: `mediapipe/wasm/${file}`, source: readFileSync(resolve(dir, file))});
+      }
+    },
+  };
+}
 
 /**
  * Builds the extension into dist/.
@@ -14,6 +28,7 @@ const root = resolve(import.meta.dirname, 'src');
 export default defineConfig(({mode}) => ({
   root,
   publicDir: resolve(import.meta.dirname, 'public'),
+  plugins: [mediapipeWasm()],
   build: {
     outDir: resolve(import.meta.dirname, 'dist'),
     emptyOutDir: true,

@@ -75,6 +75,22 @@ export function isInRange(start: string, stop: string, now = Date.now()): boolea
 }
 
 /**
+ * Current time for the screensaver clock: 'h:mm' or 'HH:mm', no AM/PM.
+ *
+ * @param fmt - 12 or 24 hour
+ * @param now - reference time (ms since epoch)
+ */
+export function formatShort(fmt: TimeFormat, now = Date.now()): string {
+  const date = new Date(now);
+  const hr24 = date.getHours();
+  const min = String(date.getMinutes()).padStart(2, '0');
+  if (fmt === TIME_FORMAT.HR_24) {
+    return `${String(hr24).padStart(2, '0')}:${min}`;
+  }
+  return `${hr24 % 12 || 12}:${min}`;
+}
+
+/**
  * Format a time of day for display.
  *
  * @param timeString - 'HH:MM', or undefined for the current time

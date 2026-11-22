@@ -8,7 +8,7 @@
 > |---|---|
 > | 1. Vite + TypeScript + MV3 project, en_US locale, icons | done |
 > | 2. chrome.storage settings, service worker (alarms, idle, keep awake, context menus, Unsplash) | done |
-> | 3. Screensaver page in Lit | placeholder page only |
+> | 3. Screensaver page in Lit | done |
 > | 4. Options page in Lit | placeholder page only |
 > | 5. Google Photos (Picker API), Reddit, Chromecast replacement | not started |
 >
