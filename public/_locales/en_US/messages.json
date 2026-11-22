@@ -1,6 +1,6 @@
 {
   "browser_action_title": {
-    "message": "Photo Screen Saver – Local Folders (click for options)"
+    "message": "Local Photo Screen Saver (click for options)"
   },
   "cancel": {
     "message": "CANCEL",
@@ -10,7 +10,7 @@
     "message": "A screensaver that shows a slide show of photos from folders on your computer."
   },
   "chrome_extension_name": {
-    "message": "Photo Screen Saver – Local Folders"
+    "message": "Local Photo Screen Saver"
   },
   "close": {
     "message": "CLOSE",

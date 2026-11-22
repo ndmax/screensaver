@@ -1,5 +1,5 @@
-Photo Screen Saver Contributors
-===============================
+Local Photo Screen Saver Contributors
+=====================================
 
 * **[Mike Updike](https://github.com/opus1269)**
 

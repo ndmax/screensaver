@@ -2,7 +2,7 @@
   "name": "photo-screensaver",
   "version": "4.0.0",
   "private": true,
-  "description": "Photo Screen Saver Chrome extension (Manifest V3 + Lit)",
+  "description": "Local Photo Screen Saver Chrome extension (Manifest V3 + Lit)",
   "license": "BSD-3-Clause",
   "type": "module",
   "scripts": {

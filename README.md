@@ -1,4 +1,4 @@
-## Photo Screen Saver Chrome Extension
+## Local Photo Screen Saver Chrome Extension
 
 A screensaver for Chrome that shows a slide show of photos from folders on
 your computer.
