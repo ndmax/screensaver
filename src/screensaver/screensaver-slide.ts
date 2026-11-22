@@ -13,10 +13,11 @@ import * as Log from '../lib/log';
 import * as Settings from '../lib/settings';
 import {TRANS_TYPE, VIEW_TYPE, type ViewType} from '../lib/settings';
 import {TIME_FORMAT} from '../lib/time';
-import {errMsg, getRandomFloat, getRandomInt} from '../lib/utils';
+import {errMsg} from '../lib/utils';
 import * as FaceDetect from './face_detect';
 import {authorLabel} from './labels';
 import {computeLayout} from './layout';
+import {randomPan} from './pan';
 import type {SSPhoto} from './ss_photo';
 
 interface Rect {
@@ -205,11 +206,8 @@ export class ScreensaverSlide extends LitElement {
         translateX = -Math.min(maxX, Math.abs(target.x)) * Math.sign(target.x);
         translateY = -Math.min(maxY, Math.abs(target.y)) * Math.sign(target.y);
       } else {
-        // random pan and zoom, kept small since we don't know the subject
-        scale = 1.0 + getRandomFloat(0.2, 0.6);
-        const maxDelta = (scale - 1.0) * 0.2;
-        translateX = Math.round((getRandomInt(0, 1) ? -1 : 1) * width * getRandomFloat(0, maxDelta));
-        translateY = Math.round((getRandomInt(0, 1) ? -1 : 1) * height * getRandomFloat(0, maxDelta));
+        // no faces: random pan and zoom
+        ({scale, x: translateX, y: translateY} = randomPan(width, height));
       }
 
       this.panAnimation = img.animate([
