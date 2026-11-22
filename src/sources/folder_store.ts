@@ -66,6 +66,20 @@ export async function allPhotos(): Promise<Photo[]> {
   return keys.flatMap((k) => (stored[k] as Photo[] | undefined) ?? []);
 }
 
+/** User-facing text for a scan error */
+export function scanErrorText(error: ScanError): string {
+  switch (error) {
+    case 'folder_err_no_access':
+      return localize('folder_err_no_access');
+    case 'folder_err_not_found':
+      return localize('folder_err_not_found');
+    case 'folder_err_subfolder':
+      return localize('folder_err_subfolder');
+    case 'folder_err_empty':
+      return localize('folder_err_empty');
+  }
+}
+
 const isListed = (path: string): boolean => Settings.get('photoFolders').includes(path);
 
 async function scanOne(path: string, prev: Photo[], prevStatus: FolderStatus | undefined, io: ScanIO): Promise<void> {
@@ -88,7 +102,7 @@ async function scanOne(path: string, prev: Photo[], prevStatus: FolderStatus | u
     return;
   }
   if (res.error) {
-    Log.error(localize(res.error, res.error), 'FolderStore.scan', path);
+    Log.error(scanErrorText(res.error), 'FolderStore.scan', path);
     await chrome.storage.local.set({[statusKey(path)]: {
       count: prev.length, skipped: base.skipped, error: res.error, scannedAt: Date.now(), scanning: false,
     } satisfies FolderStatus});

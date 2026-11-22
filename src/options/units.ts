@@ -13,26 +13,26 @@ export interface Unit {
   mult: number;
 }
 
-function unit(key: string, min: number, max: number, step: number, mult: number): Unit {
-  return {name: localize(key, key), min, max, step, mult};
+function unit(name: string, min: number, max: number, step: number, mult: number): Unit {
+  return {name, min, max, step, mult};
 }
 
 /** idleTime units, base is minutes */
 export function idleTimeUnits(): Unit[] {
   return [
-    unit('minutes', 1, 60, 1, 1),
-    unit('hours', 1, 24, 1, 60),
-    unit('days', 1, 365, 1, 1440),
+    unit(localize('minutes'), 1, 60, 1, 1),
+    unit(localize('hours'), 1, 24, 1, 60),
+    unit(localize('days'), 1, 365, 1, 1440),
   ];
 }
 
 /** transitionTime units, base is seconds */
 export function transitionTimeUnits(): Unit[] {
   return [
-    unit('seconds', 10, 60, 1, 1),
-    unit('minutes', 1, 60, 1, 60),
-    unit('hours', 1, 24, 1, 3600),
-    unit('days', 1, 365, 1, 86400),
+    unit(localize('seconds'), 10, 60, 1, 1),
+    unit(localize('minutes'), 1, 60, 1, 60),
+    unit(localize('hours'), 1, 24, 1, 3600),
+    unit(localize('days'), 1, 365, 1, 86400),
   ];
 }
 
