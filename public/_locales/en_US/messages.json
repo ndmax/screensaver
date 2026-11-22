@@ -80,6 +80,9 @@
   "folders_path_placeholder": {
     "message": "Folder path, e.g. /home/me/Pictures"
   },
+  "folders_photo": {
+    "message": "photo"
+  },
   "folders_photos": {
     "message": "photos"
   },

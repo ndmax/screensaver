@@ -108,7 +108,7 @@ try {
 
   await check('a path with # and a space works', async () => {
     await addPath(page, OTHER);
-    await waitFor(async () => (await rowFor(page, OTHER))?.text.includes('1 photos'));
+    await waitFor(async () => (await rowFor(page, OTHER))?.text.includes('1 photo'));
   });
 
   await check('removing a folder deletes its photos', async () => {

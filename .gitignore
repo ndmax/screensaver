@@ -1,6 +1,7 @@
 **/node_modules
 /dist
 /release
+/store/photos
 .env*.local
 /test/e2e/out
 

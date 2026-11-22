@@ -34,14 +34,14 @@ export async function getWorker(browser) {
   return {extId: new URL(target.url()).host, sw: await target.worker()};
 }
 
-export async function launch() {
+export async function launch({viewport = {width: 1280, height: 900}} = {}) {
   const browser = await puppeteer.launch({
     executablePath: findChromium(),
     headless: true,
     pipe: true,
     enableExtensions: true,
     dumpio: !!process.env.E2E_DEBUG,
-    defaultViewport: {width: 1280, height: 900},
+    defaultViewport: viewport,
     args: [`--disable-extensions-except=${DIST}`, `--load-extension=${DIST}`, '--no-sandbox'],
   });
   return {browser, ...await getWorker(browser)};

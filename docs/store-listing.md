@@ -58,9 +58,9 @@ Source code and issues: https://github.com/ndmax/screensaver
 | Support URL | https://github.com/ndmax/screensaver/issues |
 | Privacy policy URL | https://github.com/ndmax/screensaver/blob/master/PRIVACY.md |
 
-Images to make: at least one screenshot (1280×800 or 640×400), a small promo
-tile (440×280). The 128×128 icon is `public/images/icon_128.png`. The marquee
-(1400×560) is optional.
+Images: the screenshots and promo tiles are in [store/](../store/README.md),
+made by `npm run store-images`. The 128×128 icon is
+`public/images/icon_128.png`.
 
 ## Privacy practices tab
 
