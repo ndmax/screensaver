@@ -6,11 +6,64 @@
   <title>Photo Screen Saver</title>
   <link rel="icon" href="/images/icon_32.png">
   <style>
-    body { margin: 0; font-family: system-ui, sans-serif; background: #fafafa; color: #212121; }
+    /* Light colors, from the original Polymer theme (paper indigo and teal) */
+    :root {
+      color-scheme: light;
+      --header-color: #303f9f;
+      --header-text-color: #fff;
+      --background-color: #fafafa;
+      --card-color: #fff;
+      --toolbar-color: #eee;
+      --primary-text-color: #212121;
+      --secondary-text-color: #737373;
+      --disabled-text-color: #9b9b9b;
+      --divider-color: #dbdbdb;
+      --accent-color: #00796b;
+      --setting-item-color: #00796b;
+      --selected-item-color: #000;
+      --selected-item-background-color: #c5cae9;
+      --hover-color: rgb(0 0 0 / 6%);
+      --toggle-track-color: rgb(0 0 0 / 26%);
+      --toggle-thumb-color: #fafafa;
+      --toggle-checked-track-color: rgb(0 121 107 / 50%);
+    }
+
+    :root[data-theme='dark'] {
+      color-scheme: dark;
+      --header-color: #313131;
+      --header-text-color: #fff;
+      --background-color: #313131;
+      --card-color: #3a3a3a;
+      --toolbar-color: #212121;
+      --primary-text-color: #fff;
+      --secondary-text-color: rgb(255 255 255 / 70%);
+      --disabled-text-color: rgb(255 255 255 / 50%);
+      --divider-color: #616161;
+      --accent-color: #4db6ac;
+      --setting-item-color: #4db6ac;
+      --selected-item-color: #fff;
+      --selected-item-background-color: rgb(77 182 172 / 30%);
+      --hover-color: rgb(255 255 255 / 8%);
+      --toggle-track-color: rgb(255 255 255 / 30%);
+      --toggle-thumb-color: #bdbdbd;
+      --toggle-checked-track-color: rgb(77 182 172 / 50%);
+    }
+
+    html {
+      /* keep focused controls clear of the sticky header */
+      scroll-padding-top: 72px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--primary-text-color);
+      background: var(--background-color);
+      font: 400 16px/1.5 Roboto, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
   </style>
 </head>
 <body>
-  <options-app></options-app>
   <script type="module" src="./options/main.ts"></script>
 </body>
 </html>

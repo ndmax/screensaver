@@ -28,6 +28,10 @@
     "message": "CLOSE",
     "description": "All Caps"
   },
+  "confirm_restore": {
+    "message": "Reset every setting to its default value?",
+    "description": "Restore defaults confirmation"
+  },
   "days": {
     "message": "days"
   },
@@ -276,6 +280,10 @@
   },
   "no": {
     "message": "No"
+  },
+  "no_error": {
+    "message": "No errors have been logged.",
+    "description": "Error viewer with no error"
   },
   "no_photos": {
     "message": "No Photos"
@@ -570,6 +578,10 @@
     "message": "SLP",
     "description": "All Caps. max 3 letter abbreviation for SLEEP"
   },
+  "sources_coming": {
+    "message": "Google Photos, reddit and Chromecast sources are not available yet.",
+    "description": "Note on the photo sources tab"
+  },
   "ss_back": {
     "message": "Back one photo"
   },
@@ -604,6 +616,12 @@
   "tooltip_deselect": {
     "message": "Deselect all"
   },
+  "tooltip_error_delete": {
+    "message": "Delete the error"
+  },
+  "tooltip_error_email": {
+    "message": "Send email to support"
+  },
   "tooltip_google_mode_albums": {
     "message": "Switch to photo mode"
   },
@@ -631,10 +649,8 @@
   "tooltip_settings_toggle": {
     "message": "Enable/disable the screensaver"
   },
-  "tooltip_error_delete": {
-    "message": "Delete the error"
-  },
-  "tooltip_error_email": {
-    "message": "Send email to support"
+  "units": {
+    "message": "Units",
+    "description": "Label for a units menu"
   }
 }
