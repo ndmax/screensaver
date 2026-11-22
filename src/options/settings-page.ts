@@ -116,10 +116,12 @@ export class SettingsPage extends LitElement {
       color: var(--primary-text-color);
     }
 
-    .note {
-      padding: 16px 24px 0;
-      color: var(--secondary-text-color);
-      font-size: 14px;
+    @media (max-width: 600px) {
+      [role='tab'] {
+        min-width: 0;
+        padding: 12px 6px 10px;
+        font-size: 12px;
+      }
     }
   `];
 

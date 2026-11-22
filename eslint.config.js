@@ -22,6 +22,12 @@ export default tseslint.config(
     extends: [tseslint.configs.disableTypeChecked],
   },
   {
+    // browser tests: plain Node scripts driving Chromium
+    files: ['test/e2e/**/*.mjs'],
+    extends: [tseslint.configs.disableTypeChecked],
+    languageOptions: {globals: {...globals.node}},
+  },
+  {
     // the chrome API mock implements promise-returning APIs synchronously
     files: ['test/chrome-mock.ts'],
     rules: {'@typescript-eslint/require-await': 'off'},
