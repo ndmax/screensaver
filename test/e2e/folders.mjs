@@ -197,7 +197,9 @@ try {
     sw = await setFileAccess(browser, extId, false) ?? sw;
     page = await openOptions();
     await page.waitForSelector('>>> folder-list >>> #fileAccess', {timeout: 5000});
-    assert(await page.evaluate(`!!${FL}.querySelector('#openExtSettings')`), 'no settings button');
+    await page.click('>>> folder-list >>> #openExtSettings');
+    const ext = await browser.waitForTarget((t) => t.url().startsWith(`chrome://extensions/?id=${extId}`), {timeout: 5000});
+    await (await ext.page()).close();
     await addPath(page, OTHER);
     await waitFor(async () => (await addError(page)).includes('blocking file access'));
     await page.screenshot({path: join(OUT, 'folders-no-access.png')});
