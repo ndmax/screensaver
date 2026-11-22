@@ -1,0 +1,414 @@
+{
+  "allowed": {
+    "message": "Allowed"
+  },
+  "browser_action_title": {
+    "message": "Photo Screen Saver - click for options"
+  },
+  "cancel": {
+    "message": "CANCEL",
+    "description": "All Caps"
+  },
+  "chrome_extension_description": {
+    "message": "A screensaver with multiple photo sources, including your Google Photos."
+  },
+  "chrome_extension_name": {
+    "message": "Photo Screen Saver"
+  },
+  "close": {
+    "message": "CLOSE",
+    "description": "All Caps"
+  },
+  "confirm_restore": {
+    "message": "Reset every setting to its default value?",
+    "description": "Restore defaults confirmation"
+  },
+  "days": {
+    "message": "days"
+  },
+  "denied": {
+    "message": "Denied"
+  },
+  "disable": {
+    "message": "Disable (Alt+Shift+Q)"
+  },
+  "display_now": {
+    "message": "Display now"
+  },
+  "enable": {
+    "message": "Enable (Alt+Shift+Q)"
+  },
+  "err_error": {
+    "message": "An error occurred"
+  },
+  "err_network": {
+    "message": "Network error"
+  },
+  "err_no_internet": {
+    "message": "Internet disconnected"
+  },
+  "err_optional_permissions": {
+    "message": "Failed to modify an optional permission"
+  },
+  "err_show_ss": {
+    "message": "Failed to display screensaver"
+  },
+  "err_status": {
+    "message": "Status"
+  },
+  "err_storage_desc": {
+    "message": "Deselect other photo sources and try again."
+  },
+  "err_storage_title": {
+    "message": "Exceeded storage limits"
+  },
+  "err_unknown": {
+    "message": "unknown"
+  },
+  "file_access_off": {
+    "message": "Chrome is blocking file access. Turn on \"Allow access to file URLs\" on this extension's details page."
+  },
+  "folder_err_duplicate": {
+    "message": "Already in the list"
+  },
+  "folder_err_empty": {
+    "message": "No photos found. Showing the photos from the last good scan."
+  },
+  "folder_err_nested": {
+    "message": "Overlaps a folder already in the list"
+  },
+  "folder_err_no_access": {
+    "message": "Chrome is blocking file access"
+  },
+  "folder_err_not_dir": {
+    "message": "Not a folder"
+  },
+  "folder_err_not_found": {
+    "message": "Folder not found"
+  },
+  "folder_err_subfolder": {
+    "message": "Some subfolders couldn't be read. Showing the photos from the last good scan."
+  },
+  "folders_add": {
+    "message": "Add folder"
+  },
+  "folders_empty": {
+    "message": "Add a folder of photos to show in the screensaver. Subfolders are included."
+  },
+  "folders_found": {
+    "message": "found"
+  },
+  "folders_path_placeholder": {
+    "message": "Folder path, e.g. /home/me/Pictures"
+  },
+  "folders_photos": {
+    "message": "photos"
+  },
+  "folders_remove": {
+    "message": "Remove"
+  },
+  "folders_scanning": {
+    "message": "Scanning…"
+  },
+  "folders_skipped": {
+    "message": "skipped (videos and HEIC)"
+  },
+  "folders_title": {
+    "message": "Photo folders"
+  },
+  "help": {
+    "message": "Help"
+  },
+  "help_contributors": {
+    "message": "Contributors"
+  },
+  "help_documentation": {
+    "message": "Documentation"
+  },
+  "help_faq": {
+    "message": "Frequently asked questions"
+  },
+  "help_licenses": {
+    "message": "Open source licenses"
+  },
+  "help_source_code": {
+    "message": "Source code"
+  },
+  "hours": {
+    "message": "hours"
+  },
+  "last_error_viewer_title": {
+    "message": "Last error viewer"
+  },
+  "menu": {
+    "message": "Menu"
+  },
+  "menu_12_hour": {
+    "message": "12 hour"
+  },
+  "menu_24_hour": {
+    "message": "24 hour"
+  },
+  "menu_error": {
+    "message": "View last error"
+  },
+  "menu_fade": {
+    "message": "Fade"
+  },
+  "menu_frame": {
+    "message": "Frame"
+  },
+  "menu_full": {
+    "message": "Full (May distort)"
+  },
+  "menu_letterbox": {
+    "message": "Letterbox"
+  },
+  "menu_preview": {
+    "message": "Preview screensaver"
+  },
+  "menu_random": {
+    "message": "Random"
+  },
+  "menu_scale_up": {
+    "message": "Scale up"
+  },
+  "menu_settings": {
+    "message": "Settings"
+  },
+  "menu_slide_down": {
+    "message": "Slide down"
+  },
+  "menu_slide_from_bottom": {
+    "message": "Slide from bottom"
+  },
+  "menu_slide_from_right": {
+    "message": "Slide from right"
+  },
+  "menu_slide_right": {
+    "message": "Slide right"
+  },
+  "menu_slide_up": {
+    "message": "Slide up"
+  },
+  "menu_spin_up": {
+    "message": "Spin up"
+  },
+  "menu_zoom": {
+    "message": "Zoom (May crop)"
+  },
+  "minutes": {
+    "message": "minutes"
+  },
+  "no": {
+    "message": "No"
+  },
+  "no_error": {
+    "message": "No errors have been logged.",
+    "description": "Error viewer with no error"
+  },
+  "no_photos": {
+    "message": "No Photos"
+  },
+  "notSet": {
+    "message": "Not Set"
+  },
+  "off": {
+    "message": "is Off"
+  },
+  "off_abbrev": {
+    "message": "OFF",
+    "description": "All Caps. max 3 letter abbreviation for OFF"
+  },
+  "ok": {
+    "message": "OK",
+    "description": "All Caps"
+  },
+  "on": {
+    "message": "is On"
+  },
+  "open_ext_settings": {
+    "message": "Open extension settings"
+  },
+  "photo": {
+    "message": "photo"
+  },
+  "power_abbrev": {
+    "message": "PWR",
+    "description": "All Caps. max 3 letter abbreviation for POWER"
+  },
+  "screensaver": {
+    "message": "Screensaver"
+  },
+  "seconds": {
+    "message": "seconds"
+  },
+  "setting_all_displays": {
+    "message": "All displays"
+  },
+  "setting_all_displays_desc": {
+    "message": "Show screensaver on all connected displays"
+  },
+  "setting_background": {
+    "message": "Run Chrome in background"
+  },
+  "setting_background_desc": {
+    "message": "Starts Chrome on computer boot and keeps running when closed (Recommended)"
+  },
+  "setting_bg": {
+    "message": "Background"
+  },
+  "setting_bg_desc": {
+    "message": "Set the background image of the screensaver"
+  },
+  "setting_bg_dialog_title": {
+    "message": "Select background image"
+  },
+  "setting_dark_mode": {
+    "message": "Dark theme"
+  },
+  "setting_dark_mode_desc": {
+    "message": "Use dark colors for this page"
+  },
+  "setting_detect_faces": {
+    "message": "Detect faces"
+  },
+  "setting_detect_faces_desc": {
+    "message": "Use pattern recognition to pan and zoom to people's faces"
+  },
+  "setting_full_screen": {
+    "message": "Do not show over fullscreen Chrome windows"
+  },
+  "setting_full_screen_desc": {
+    "message": "Useful if you are watching videos"
+  },
+  "setting_idle_time": {
+    "message": "Wait time"
+  },
+  "setting_interactive": {
+    "message": "Interactive mode"
+  },
+  "setting_interactive_desc": {
+    "message": "Toggle paused (Alt+Shift+Space), Back (Alt+Shift+LeftArrow), Forward (Alt+Shift+RightArrow)"
+  },
+  "setting_keep_awake": {
+    "message": "Keep Awake"
+  },
+  "setting_keep_awake_desc": {
+    "message": "Prevent display from sleeping (always active if start and stop times are equal)"
+  },
+  "setting_large_time": {
+    "message": "Large time label"
+  },
+  "setting_pan_and_scan": {
+    "message": "Pan and zoom current photo"
+  },
+  "setting_pan_and_scan_desc": {
+    "message": "Apply the \"Ken Burns\" effect to the photos"
+  },
+  "setting_photo_clicks": {
+    "message": "Show source of photo on mouse click, if available"
+  },
+  "setting_photo_sizing": {
+    "message": "Photo display mode"
+  },
+  "setting_photo_transition": {
+    "message": "Photo transition method"
+  },
+  "setting_photog": {
+    "message": "Show folder name"
+  },
+  "setting_show_time": {
+    "message": "Show time"
+  },
+  "setting_shuffle": {
+    "message": "Randomize"
+  },
+  "setting_shuffle_desc": {
+    "message": "Present photos in random order"
+  },
+  "setting_skip": {
+    "message": "Skip extreme aspect ratio photos"
+  },
+  "setting_skip_desc": {
+    "message": "Do not display certain photos in Zoom and Full modes"
+  },
+  "setting_start_time": {
+    "message": "Time to start"
+  },
+  "setting_start_time_desc": {
+    "message": "Allow screensaver display, starting at this time"
+  },
+  "setting_stop_time": {
+    "message": "Time to stop"
+  },
+  "setting_stop_time_desc": {
+    "message": "Disallow screensaver display after this time"
+  },
+  "setting_suspend": {
+    "message": "Allow system suspend"
+  },
+  "setting_suspend_desc": {
+    "message": "Computer may sleep during inactive time"
+  },
+  "setting_transition_time": {
+    "message": "Photo transition time"
+  },
+  "settings_appearance": {
+    "message": "Appearance"
+  },
+  "settings_behavior": {
+    "message": "Behavior"
+  },
+  "settings_extras": {
+    "message": "Additional display features"
+  },
+  "sleep_abbrev": {
+    "message": "SLP",
+    "description": "All Caps. max 3 letter abbreviation for SLEEP"
+  },
+  "ss_back": {
+    "message": "Back one photo"
+  },
+  "ss_forward": {
+    "message": "Forward one photo"
+  },
+  "ss_toggle_paused": {
+    "message": "Toggle paused"
+  },
+  "tab_display": {
+    "message": "DISPLAY CONTROLS",
+    "description": "All Caps"
+  },
+  "tab_slideshow": {
+    "message": "SLIDE SHOW CONTROLS",
+    "description": "All Caps"
+  },
+  "tab_sources": {
+    "message": "PHOTO SOURCES",
+    "description": "All Caps"
+  },
+  "time_format": {
+    "message": "12",
+    "description": "Set to 12 for AM/PM format or 24"
+  },
+  "toggle_enabled": {
+    "message": "Toggle enabled state"
+  },
+  "tooltip_error_delete": {
+    "message": "Delete the error"
+  },
+  "tooltip_keep_awake": {
+    "message": "The Keep awake features are available even if the screensaver is disabled, so you can use the app as a general power scheduler. The icon will display 'PWR' when in this state."
+  },
+  "tooltip_restore": {
+    "message": "Restore default settings"
+  },
+  "tooltip_settings_toggle": {
+    "message": "Enable/disable the screensaver"
+  },
+  "units": {
+    "message": "Units",
+    "description": "Label for a units menu"
+  }
+}

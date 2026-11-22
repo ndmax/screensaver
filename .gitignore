@@ -30,3 +30,7 @@ _site/
 Thumbs.db
 *- Copy*
 
+
+# local build secrets
+.env*.local
+/test/e2e/out
